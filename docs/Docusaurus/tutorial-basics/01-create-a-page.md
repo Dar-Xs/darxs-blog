@@ -2,9 +2,9 @@
 sidebar_position: 1
 ---
 
-# Create a Page
+# 创建一个页面
 
-Add **Markdown or React** files to `src/pages` to create a **standalone page**:
+添加 **Markdown 或 React** 文件到 `src/pages` 下来创建**独立页面**：
 
 - `src/pages/index.js` → `localhost:3000/`
 - `src/pages/foo.md` → `localhost:3000/foo`
