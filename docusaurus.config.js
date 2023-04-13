@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/favicon.png',
 
   // Set the production url of your site here
-  url: 'https://blog.darxs.com.cn',
+  url: 'https://darxs.com.cn',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -97,8 +97,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Docusaurus Tutorial',
+                to: '/docs/Docusaurus/intro',
               },
             ],
           },
@@ -131,13 +131,30 @@ const config = {
                 href: 'https://blog.darxs.cn',
               },
               {
-                label: 'GitHub',
+                label: 'GitHub Repository',
                 href: 'https://github.com/Dar-Xs/darxs-blog',
               },
             ],
           },
+          {
+            title: 'Thanks',
+            items: [
+              {
+                label: 'Netlify',
+                href: 'https://www.netlify.com',
+              },
+              {
+                label: 'Docusaurus',
+                href: 'https://docusaurus.io',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com',
+              },
+            ],
+          },
         ],
-        copyright: `Copyright © 2019 - ${new Date().getFullYear()} DarXs Team. Built with Docusaurus.`,
+        copyright: `Copyright © 2019 - ${new Date().getFullYear()} DarXs Team. Built with Docusaurus, Powered by Netlify.`,
       },
       prism: {
         theme: lightCodeTheme,

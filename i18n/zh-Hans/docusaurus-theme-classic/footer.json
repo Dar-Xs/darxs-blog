@@ -11,10 +11,6 @@
     "message": "更多",
     "description": "The title of the footer links column with title=More in the footer"
   },
-  "link.item.label.Tutorial": {
-    "message": "教学",
-    "description": "The label of footer link with label=Tutorial linking to /docs/intro"
-  },
   "link.item.label.Stack Overflow": {
     "message": "Stack Overflow",
     "description": "The label of footer link with label=Stack Overflow linking to https://stackoverflow.com/users/20128048/dr-xiong"
@@ -37,10 +33,30 @@
   },
   "link.item.label.GitHub": {
     "message": "GitHub",
-    "description": "The label of footer link with label=GitHub linking to https://github.com/Dar-Xs/darxs-blog"
+    "description": "The label of footer link with label=GitHub linking to https://github.com"
   },
   "copyright": {
-    "message": "版权所有 © 2019 - 2023 DarXs 微分。使用 Docusaurus 构建。",
+    "message": "版权所有 © 2019 - 2023 DarXs 微分。使用 Docusaurus 构建，运行在 Netlify 上。",
     "description": "The footer copyright"
+  },
+  "link.title.Thanks": {
+    "message": "致谢",
+    "description": "The title of the footer links column with title=Thanks in the footer"
+  },
+  "link.item.label.Netlify": {
+    "message": "Netlify",
+    "description": "The label of footer link with label=Netlify linking to https://www.netlify.com"
+  },
+  "link.item.label.Docusaurus": {
+    "message": "Docusaurus",
+    "description": "The label of footer link with label=Docusaurus linking to https://docusaurus.io"
+  },
+  "link.item.label.GitHub Repository": {
+    "message": "GitHub 仓库",
+    "description": "The label of footer link with label=GitHub Repository linking to https://github.com/Dar-Xs/darxs-blog"
+  },
+  "link.item.label.Docusaurus Tutorial": {
+    "message": "Docusaurus 教程",
+    "description": "The label of footer link with label=Docusaurus Tutorial linking to /docs/Docusaurus/intro"
   }
 }

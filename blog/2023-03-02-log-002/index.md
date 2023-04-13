@@ -5,13 +5,14 @@ authors: [Dar-Xs]
 tags: [Docker, EXT4, OpenWrt, SMR, Time Machine]
 ---
 
-2023年3月22日更新：刚刚Time Machine帮我挽回了一份没保存的Keynote文件，虽然文件不太重要，但也减少了我重新编写文件的时间。
+2023 年 3 月 22 日更新：刚刚 Time Machine 帮我挽回了一份没保存的 Keynote 文件，虽然文件不太重要，但也减少了我重新编写文件的时间。
 
 ----
 
 　　本篇博文将介绍我借助 mbentley 提供的镜像使用 Docker 在 OpenWrt 系统的软路由下部署网络存储，并应用于 Time Machine。本文同时介绍了一种机械硬盘的数据记录技术和磁盘文件系统。
 
 
+<!--truncate-->
 ![Apple 时间机器设置界面](./timemachine.png)
 
 ## 前情提要
@@ -30,7 +31,7 @@ tags: [Docker, EXT4, OpenWrt, SMR, Time Machine]
 
 　　OpenWrt 是适用于嵌入式设备的一个 Linux 发行版，一般运行在软路由上。
 
-　　OpenWrt 本身未带任何 UI，需要通过 LuCI，webif 等各种延伸界面，LuCI 界面是使用率最高的 Web 管理界面。
+　　OpenWrt 本身未带任何 UI，需要通过 LuCI、webif 等各种延伸界面，LuCI 界面是使用率最高的 Web 管理界面。
 
 　　我使用一台 ABOX-600 来充当软路由，并在其上安装了 OpenWrt 作为系统。选用 OpenWrt 的理由之一是，它的众多软件包中包含 Docker。这将方便我以后部署其他我需要的服务。
 
@@ -42,7 +43,7 @@ tags: [Docker, EXT4, OpenWrt, SMR, Time Machine]
 
 ### EXT4
 
-　　第四代扩展文件系统（英语：Fourth extended filesystem，缩写为 ext4）是 Linux 系统下的日志文件系统，是 ext3 文件系统的后继版本。
+　　第四代扩展文件系统（Fourth extended filesystem，缩写为 ext4）是 Linux 系统下的日志文件系统，是 ext3 文件系统的后继版本。
 
 　　由于 OpenWrt 使用 Linux 内核，我选择将磁盘格式化为该文件系统，以便防止与软路由的 Linux 文件系统不同而发生冲突。
 

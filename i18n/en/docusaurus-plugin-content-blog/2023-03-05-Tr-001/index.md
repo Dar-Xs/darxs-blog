@@ -24,10 +24,11 @@ She wrote:
 In the years of IE 90% dominance there was nothing much to do but regard the browser as a "black box", but now, with open source browsers having [more than half of the usage share](http://techcrunch.com/2011/08/01/open-web-browsers/), it's a good time to take a peek under the engine's hood and see what's inside a web browser. Well, what's inside are millions of C++ lines…
 :::
 
+<!--truncate-->
 Tali published her research on [her site](http://taligarsiel.com/), but we knew it deserved a larger audience, so we've cleaned it up and republished it here.
 
 
->  As a web developer, **learning the internals of browser operations helps you make better decisions and know the justifications behind development best practices**. While this is a rather lengthy document, we recommend you spend some time digging in; we guarantee you'll be glad you did.
+> As a web developer, **learning the internals of browser operations helps you make better decisions and know the justifications behind development best practices**. While this is a rather lengthy document, we recommend you spend some time digging in; we guarantee you'll be glad you did.
 > 
 >  -- _Paul Irish, Chrome Developer Relations_
 
@@ -75,7 +76,7 @@ The browser's main components are:
   1. **Data storage**. This is a persistence layer. The browser may need to save all sorts of data locally, such as cookies. Browsers also support storage mechanisms such as localStorage, IndexedDB, WebSQL and FileSystem.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/PgPX6ZMyKSwF6kB8zIhB.png" alt="Browser components" width="500" height="339" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/PgPX6ZMyKSwF6kB8zIhB.png" alt="Browser components" width="500" height="339" />
   <figcaption>Figure 1: Browser components</figcaption>
 </figure>
 
@@ -102,7 +103,7 @@ The rendering engine will start getting the contents of the requested document f
 After that, this is the basic flow of the rendering engine:
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/bPlYx9xODQH4X1KuUNpc.png" alt="Rendering engine basic flow" width="600" height="66" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/bPlYx9xODQH4X1KuUNpc.png" alt="Rendering engine basic flow" width="600" height="66" />
   <figcaption>Figure 2: Rendering engine basic flow</figcaption>
 </figure>
 
@@ -122,12 +123,12 @@ Parts of the content will be parsed and displayed, while the process continues w
 ### Main flow examples
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/S9TJhnMX1cu1vrYuQRqM.png" alt="WebKit main flow." width="624" height="289" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/S9TJhnMX1cu1vrYuQRqM.png" alt="WebKit main flow." width="624" height="289" />
   <figcaption>Figure 3: WebKit main flow</figcaption>
 </figure>
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/Tbif2mUJCUVyPdyXntZk.jpg" alt="Mozilla's Gecko rendering engine main flow." width="624" height="290" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/Tbif2mUJCUVyPdyXntZk.jpg" alt="Mozilla's Gecko rendering engine main flow." width="624" height="290" />
   <figcaption>Figure 4: Mozilla's Gecko rendering engine main flow</figcaption>
 </figure>
 
@@ -150,7 +151,7 @@ Parsing a document means translating it to a structure the code can use. The res
 For example, parsing the expression `2 + 3 - 1` could return this tree:
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/xNQUG9emGd8FzuOpumP7.png" alt="Mathematical expression tree node." width="400" height="155" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/xNQUG9emGd8FzuOpumP7.png" alt="Mathematical expression tree node." width="400" height="155" />
   <figcaption>Figure 5: mathematical expression tree node</figcaption>
 </figure>
 
@@ -174,7 +175,7 @@ Parsers usually divide the work between two components: the **lexer** (sometimes
 The lexer knows how to strip irrelevant characters like white spaces and line breaks.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/TfY1qPDNbZS8iBnlAO4b.png" alt="From source document to parse trees" width="101" height="300" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/TfY1qPDNbZS8iBnlAO4b.png" alt="From source document to parse trees" width="101" height="300" />
   <figcaption>Figure 6: from source document to parse trees</figcaption>
 </figure>
 
@@ -187,7 +188,7 @@ If no rule matches, the parser will store the token internally, and keep asking 
 In many cases the parse tree is not the final product. Parsing is often used in translation: transforming the input document to another format. An example is compilation. The compiler that compiles source code into machine code first parses it into a parse tree and then translates the tree into a machine code document.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/VhoUBTyHWNnnZJiIfRAo.png" alt="Compilation flow" width="104" height="400" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/VhoUBTyHWNnnZJiIfRAo.png" alt="Compilation flow" width="104" height="400" />
   <figcaption>Figure 7: compilation flow</figcaption>
 </figure>
 
@@ -284,7 +285,7 @@ The partly matched expression is placed on the parser's stack.
       </tr>
       <tr>
         <td>expression</td>
-        <td>-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -362,7 +363,7 @@ For example:
 This markup would be translated to the following DOM tree:
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/DNtfwOq9UaC3TrEj3D9h.png" alt="DOM tree of the example markup" width="400" height="219" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/DNtfwOq9UaC3TrEj3D9h.png" alt="DOM tree of the example markup" width="400" height="219" />
   <figcaption>Figure 8: DOM tree of the example markup</figcaption>
 </figure>
 
@@ -395,7 +396,7 @@ Among HTML tokens are start tags, end tags, attribute names and attribute values
 The tokenizer recognizes the token, gives it to the tree constructor, and consumes the next character for recognizing the next token, and so on until the end of the input.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/YYYp1GgcD0riUliWJdiX.png" alt="HTML parsing flow (taken from HTML5 spec)" width="308" height="400" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/YYYp1GgcD0riUliWJdiX.png" alt="HTML parsing flow (taken from HTML5 spec)" width="308" height="400" />
   <figcaption>Figure 9: HTML parsing flow (taken from HTML5 spec)</figcaption>
 </figure>
 
@@ -432,7 +433,7 @@ Consuming the next input `/` will cause creation of an `end tag token` and a mov
 The `</html>` input will be treated like the previous case.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/52SA8fqorIKP6h22JHUR.png" alt="Tokenizing the example input" width="627" height="387" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/52SA8fqorIKP6h22JHUR.png" alt="Tokenizing the example input" width="627" height="387" />
   <figcaption>Figure 10: Tokenizing the example input</figcaption>
 </figure>
 
@@ -470,7 +471,7 @@ We will now receive the html end tag which will move us to **"after after body"*
 Receiving the end of file token will end the parsing.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/Q8vtwKMnnvYf48eeY95Y.gif" alt="Tree construction of example HTML." width="532" height="769" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/Q8vtwKMnnvYf48eeY95Y.gif" alt="Tree construction of example HTML." width="532" height="769" />
   <figcaption>Figure 11: tree construction of example html</figcaption>
 </figure>
 
@@ -704,7 +705,7 @@ Firefox uses a top down parser written manually.
 In both cases each CSS file is parsed into a StyleSheet object. Each object contains CSS rules. The CSS rule objects contain selector and declaration objects and other objects corresponding to CSS grammar.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/vBMlouM57RHDG29Ukzhi.png" alt="Parsing CSS." width="500" height="393" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/vBMlouM57RHDG29Ukzhi.png" alt="Parsing CSS." width="500" height="393" />
   <figcaption>Figure 12: parsing CSS</figcaption>
 </figure>
 
@@ -814,7 +815,7 @@ Floats and absolutely positioned elements are out of flow, placed in a different
 A placeholder frame is where they should have been.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/937hKTBHU2FAEyMRdi5z.png" alt="The render tree and the corresponding DOM tree." width="731" height="396" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/937hKTBHU2FAEyMRdi5z.png" alt="The render tree and the corresponding DOM tree." width="731" height="396" />
   <figcaption>Figure 13: The render tree and the corresponding DOM tree. The "Viewport" is the initial containing block. In WebKit it will be the "RenderView" object</figcaption>
 </figure>
 
@@ -886,7 +887,7 @@ Firefox has two extra trees for easier style computation: the rule tree and styl
 WebKit also has style objects but they are not stored in a tree like the style context tree, only the DOM node points to its relevant style.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/qnms42muTKM1KVUarpVH.png" alt="Firefox style context tree." width="640" height="407" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/qnms42muTKM1KVUarpVH.png" alt="Firefox style context tree." width="640" height="407" />
   <figcaption>Figure 14: Firefox style context tree.</figcaption>
 </figure>
 
@@ -901,7 +902,7 @@ The idea is to see the tree paths as words in a lexicon.
 Lets say we already computed this rule tree:
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/RwZNIJLCLZqbH2c9eXXg.png" alt="Computed rule tree" width="400" height="261" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/RwZNIJLCLZqbH2c9eXXg.png" alt="Computed rule tree" width="400" height="261" />
   <figcaption>Figure 15: Computed rule tree.</figcaption>
 </figure>
 
@@ -968,14 +969,14 @@ The margin struct contains the four sides.
 The resulting rule tree will look like this (the nodes are marked with the node name: the number of the rule they point at):
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/zJM11a5O0t2C91bXl8wS.png" alt="The rule tree" width="500" height="294" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/zJM11a5O0t2C91bXl8wS.png" alt="The rule tree" width="500" height="294" />
   <figcaption>Figure 16: The rule tree</figcaption>
 </figure>
 
 The context tree will look like this (node name: rule node they point to):
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/3QoZ4kD7dDBR6HYobs4w.png" alt="The context tree." width="400" height="305" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/3QoZ4kD7dDBR6HYobs4w.png" alt="The context tree." width="400" height="305" />
   <figcaption>Figure 17: The context tree</figcaption>
 </figure>
 
@@ -1179,7 +1180,7 @@ Layout can be incremental, only the dirty renderers will be laid out (this can c
 Incremental layout is triggered (asynchronously) when renderers are dirty. For example when new renderers are appended to the render tree after extra content came from the network and was added to the DOM tree.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/pjIcQqbVvJPryLtHpefc.png" alt="Incremental layout." width="326" height="341" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/pjIcQqbVvJPryLtHpefc.png" alt="Incremental layout." width="326" height="341" />
   <figcaption>Figure 18: Incremental layout - only dirty renderers and their children are laid out (<a href="#3_6">3.6</a>)</figcaption>
 </figure>
 
@@ -1339,7 +1340,7 @@ The [CSS box model](http://www.w3.org/TR/CSS2/box.html) describes the rectangula
 Each box has a content area (e.g. text, an image, etc.) and optional surrounding padding, border, and margin areas.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/KbqHxGe3HMLM5BbXMcP8.jpg" alt="CSS2 box model" width="509" height="348" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/KbqHxGe3HMLM5BbXMcP8.jpg" alt="CSS2 box model" width="509" height="348" />
   <figcaption>Figure 19: CSS2 box model</figcaption>
 </figure>
 
@@ -1388,14 +1389,14 @@ The way the box is laid out is determined by:
 Block box: forms a block - has its own rectangle in the browser window.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/fvhwoy1W1Se7IY4XyiXp.png" alt="Block box." width="150" height="127" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/fvhwoy1W1Se7IY4XyiXp.png" alt="Block box." width="150" height="127" />
   <figcaption>Figure 20: Block box</figcaption>
 </figure>
 
 Inline box: does not have its own block, but is inside a containing block.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/srPz5klZnpr6j5edpV45.png" alt="Inline boxes." width="300" height="233" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/srPz5klZnpr6j5edpV45.png" alt="Inline boxes." width="300" height="233" />
   <figcaption>Figure 21: Inline boxes</figcaption>
 </figure>
 
@@ -1403,7 +1404,7 @@ Blocks are formatted vertically one after the other.
 Inlines are formatted horizontally.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/8i6bZtuslRR3kJdsST6p.png" alt="Block and Inline formatting." width="350" height="324" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/8i6bZtuslRR3kJdsST6p.png" alt="Block and Inline formatting." width="350" height="324" />
   <figcaption>Figure 22: Block and Inline formatting</figcaption>
 </figure>
 
@@ -1413,7 +1414,7 @@ If the container width is not enough, the inlines will be put on several lines.
 This is usually what happens in a paragraph.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/xChsrrYLPU7MfekdR7zS.png" alt="Lines." width="400" height="277" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/xChsrrYLPU7MfekdR7zS.png" alt="Lines." width="400" height="277" />
   <figcaption>Figure 23: Lines</figcaption>
 </figure>
 
@@ -1424,7 +1425,7 @@ This is usually what happens in a paragraph.
 Relative positioning - positioned like usual and then moved by the required delta.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/C1rUmDaOa8kGRx1PSdUu.png" alt="Relative positioning." width="500" height="261" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/C1rUmDaOa8kGRx1PSdUu.png" alt="Relative positioning." width="500" height="261" />
   <figcaption>Figure 24: Relative positioning</figcaption>
 </figure>
 
@@ -1443,7 +1444,7 @@ The HTML:
 Will look like:
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/ozqqfqboQ0IJJWlv5xXx.png" alt="Float." width="444" height="203" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/ozqqfqboQ0IJJWlv5xXx.png" alt="Float." width="444" height="203" />
   <figcaption>Figure 25: Float</figcaption>
 </figure>
 
@@ -1454,7 +1455,7 @@ The dimensions are relative to the container.
 In fixed, the container is the viewport.
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/0xwOrAiWm2kpuCecsRv1.png" alt="Fixed positioning." width="500" height="343" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/0xwOrAiWm2kpuCecsRv1.png" alt="Fixed positioning." width="500" height="343" />
   <figcaption>Figure 26: Fixed positioning</figcaption>
 </figure>
 
@@ -1498,7 +1499,7 @@ Example:
 The result will be this:
 
 <figure>
-  <img src="image/T4FyVKpzu4WKF1kBNvXepbi08t52/EXneyo5lwaJ6g09BuCo6.png" alt="Fixed positioning." width="254" height="227" />
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/EXneyo5lwaJ6g09BuCo6.png" alt="Fixed positioning." width="254" height="227" />
   <figcaption>Figure 27: Fixed positioning</figcaption>
 </figure>
 

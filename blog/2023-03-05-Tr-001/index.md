@@ -11,6 +11,7 @@ authors:
     url: https://www.paulirish.com
     image_url: https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/pkfFfQq25tFjXgFQw1rF.png
   - Dar-Xs
+tags: [解析, 浏览器, BNF, CSS, DOM, HTML, JavaScript]
 ---
 现代web浏览器的背后
 
@@ -24,6 +25,7 @@ authors:
 　　在IE占据90%市场的那些年里，我们除了将浏览器视为“黑盒”外，没有什么可做的。但现在，随着开源浏览器占据了[超过一半的市场份额](http://techcrunch.com/2011/08/01/open-web-browsers/)，是时候窥探一下引擎的核心，看看web浏览器内部是什么了。好吧，里面有数百万行的C++代码……
 :::
 
+<!--truncate-->
 　　Tali在[她的网站](http://taligarsiel.com/)上发表了她的研究，但我们知道这值得被广泛传播，所以我们把它整理了一下，并在这里重新发表。
 
 > 　　作为一名web开发人员，**了解浏览器内部的操作原理可以帮助你做出更好的决策，并了解最佳开发方法背后的理由**。虽然这是一个相当长的文档，但我们建议您花些时间深入研究。我们保证你研究完之后会很满意。
