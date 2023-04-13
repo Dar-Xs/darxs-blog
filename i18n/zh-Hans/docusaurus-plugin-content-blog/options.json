@@ -8,7 +8,7 @@
     "description": "The description for the blog used in SEO"
   },
   "sidebar.title": {
-    "message": "最近发布",
+    "message": "全部博文",
     "description": "The label for the left sidebar"
   }
 }
