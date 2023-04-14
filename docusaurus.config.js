@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'DarXs',
   tagline: 'Dare to face the Xs.',
-  favicon: 'img/favicon.png',
+  favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://darxs.com.cn',
@@ -155,6 +155,11 @@ const config = {
           },
         ],
         copyright: `Copyright © 2019 - ${new Date().getFullYear()} DarXs Team. Built with Docusaurus, Powered by Netlify.`,
+      },
+      colorMode: {
+        defaultMode: 'light',
+        disableSwitch: false,
+        respectPrefersColorScheme: true,
       },
       prism: {
         theme: lightCodeTheme,
