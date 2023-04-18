@@ -4,32 +4,29 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
+    title: '易于使用',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Docusaurus 从一开始就被设计成易于安装和使用，可快速启动您的网站。
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: '专注要事',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Docusaurus 可让您专注于您的文档，而我们将完成琐事。您可以将文档移动到 <code>docs</code> 目录中。
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: '源自React',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        通过重用 React，扩展或自定义您的网站布局。Docusaurus 可以在重用相同的页眉和页脚的同时进行扩展。
       </>
     ),
   },

@@ -21,6 +21,14 @@ function HomepageHeader() {
             Docusaurus Tutorial - 5min ⏱️
           </Link>
         </div>
+        <p className="hero__subtitle" style={{margin: "0.3rem"}}>or</p>
+        <div className={styles.buttons} >
+          <Link
+            className="button button--secondary button--lg"
+            to="/blog">
+            Take a tour of my Blog
+          </Link>
+        </div>
       </div>
     </header>
   );
