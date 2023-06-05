@@ -8,20 +8,20 @@ sidebar_position: 1
 
 ## 准备开始
 
-Get started by **creating a new site**.
+你可以**创建一个新的网站**。
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+或者用 **[docusaurus.new](https://docusaurus.new) 立即体验 Docusaurus**。
 
-### What you'll need
+### 准备工作
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+- [Node.js](https://nodejs.org/en/download/) 16.14 或更高版本：
+  - 在安装 Node.js 时，建议你勾选所有相关依赖项。
 
-## Generate a new site
+## 生成一个新的站点
 
-Generate a new Docusaurus site using the **classic template**.
+用**经典模板**生成一个新的 Docusaurus 站点。
 
-The classic template will automatically be added to your project after you run the command:
+运行下列命令后，经典模板将会自动被添加到你的工程中：
 
 ```bash
 npm init docusaurus@latest my-website classic

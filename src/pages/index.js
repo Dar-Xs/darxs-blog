@@ -10,18 +10,10 @@ import styles from './index.module.css';
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx('hero hero--primary', styles.heroBanner)} >
       <div className="container">
         <h1 className="hero__title">DarXs 微分</h1>
         <p className="hero__subtitle">勇敢面对未知</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/Docusaurus/intro">
-            Docusaurus 教程 - 5 分钟 ⏱️
-          </Link>
-        </div>
-        <p className="hero__subtitle" style={{margin: "0.3rem"}}>或</p>
         <div className={styles.buttons} >
           <Link
             className="button button--secondary button--lg"

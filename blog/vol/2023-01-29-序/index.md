@@ -1,5 +1,5 @@
 ---
-slug: vol-001
+slug: index
 title: 序
 authors: [Dar-Xs]
 tags: [helloworld, 互联网, 对等, 大自然]

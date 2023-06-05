@@ -59,7 +59,7 @@ const config = {
       }),
     ],
   ],
-  plugins: ['@docusaurus/theme-live-codeblock'],
+  plugins: ['@docusaurus/theme-live-codeblock','docusaurus-plugin-sass'],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -79,6 +79,7 @@ const config = {
             label: 'Tutorial',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/portfolio', label: 'Portfolio', position: 'left'},
           {
             href: 'https://github.com/Dar-Xs/darxs-blog',
             label: 'GitHub',

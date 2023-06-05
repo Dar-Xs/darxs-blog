@@ -1,5 +1,5 @@
 ---
-slug: log-003
+slug: texas-game-web-full-stack-development
 title: 德州扑克-Web全栈开发
 authors: [Dar-Xs]
 tags: [Axios, Express, JavaScript, Node.js, npm, TypeScript, Vue3, Web]

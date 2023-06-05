@@ -18,5 +18,17 @@
   "sidebar.tutorialSidebar.category.Docusaurus": {
     "message": "Docusaurus",
     "description": "The label for category Docusaurus in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Docker": {
+    "message": "Docker",
+    "description": "The label for category Docker in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Docker.link.generated-index.description": {
+    "message": "你需要知道的关于 Docker 的一切",
+    "description": "The generated-index page description for category Docker in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Docker Compose": {
+    "message": "Docker Compose",
+    "description": "The label for category Docker Compose in sidebar tutorialSidebar"
   }
 }

@@ -1,5 +1,5 @@
 ---
-slug: log-002
+slug: setup-apple-timemachine-in-docker
 title: 搭建无线Time Machine
 authors: [Dar-Xs]
 tags: [Docker, EXT4, OpenWrt, SMR, Time Machine]

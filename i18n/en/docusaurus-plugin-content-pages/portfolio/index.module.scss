@@ -1,0 +1,49 @@
+@keyframes waving {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+}
+.banner {
+  padding: 4rem 0;
+  height: 25rem;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  .title {
+    font-size: 72px;
+    span {
+      display: block;
+      font-size: 24px;
+      .wave {
+        display: inline-block;
+        animation: 1s ease-in-out 1s infinite waving;
+      }
+    }
+    strong {
+      color: var(--ifm-color-primary-lightest);
+    }
+  }
+  .roleContent {
+    font-size: 21px;
+    .role {
+      font-weight: bold;
+      font-size: 30px;
+    }
+  }
+}
+
+@media screen and (max-width: 996px) {
+  .banner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
+  
