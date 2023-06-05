@@ -13,7 +13,7 @@ authors:
 ---
 Behind the scenes of modern web browsers
 
-英文原文于 2011 年 8 月 5 日发布在 [web.dev](https://web.dev) 上（[原文链接](https://web.dev/howbrowserswork/)）
+The original version was posted on [web.dev](https://web.dev) on August 5, 2011 ([Original link](https://web.dev/howbrowserswork/))
 
 ## Preface
 

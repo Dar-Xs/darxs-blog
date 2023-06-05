@@ -1,5 +1,5 @@
 ---
-slug: tr-001
+slug: how-browsers-work
 title: 浏览器如何运作
 authors:
   - name: Tali Garsiel

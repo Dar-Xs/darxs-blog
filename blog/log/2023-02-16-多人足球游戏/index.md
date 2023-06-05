@@ -1,5 +1,5 @@
 ---
-slug: log-001
+slug: start-from-scratch-multi-player-soccer-game
 title: 从零开始的多人足球游戏
 authors: [Dar-Xs]
 tags: [多线程, 系统级编程, C, GUI, Java, Java Swing, Linux, TCP]
