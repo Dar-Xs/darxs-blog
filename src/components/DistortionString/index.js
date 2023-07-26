@@ -49,8 +49,13 @@ function randStringNear(string, radius) {
 }
 
 export default function DistortionString({
-  contents = ["Fontend Developer", "前端工程师", "Web Developer", "iOS Developer"],
-  setIsAn = (isAn) => {}
+  contents = [
+    "Fontend Developer",
+    "前端工程师",
+    "Web Developer",
+    "iOS Developer",
+  ],
+  setIsAn = (isAn) => {},
 }) {
   const [content, setContent] = useState(contents[0] || "");
   const [inputPromptVisible, setinputPromptVisible] = useState(true);
@@ -109,7 +114,7 @@ export default function DistortionString({
         }}
       >
         {content}
-        {inputPromptVisible && "|"}
+        {inputPromptVisible ? "|" : "\u00A0"}
       </div>
     </div>
   );

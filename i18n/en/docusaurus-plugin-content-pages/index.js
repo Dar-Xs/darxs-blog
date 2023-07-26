@@ -20,7 +20,7 @@ export default function Index() {
                 <span>
                   Hello<span className={styles.wave}>👋</span>, I'm
                 </span>
-                Dr.<strong>Xiong</strong>
+                Dr. <strong>Xiong</strong>
               </h1>
               <div className={styles.roleContent}>
                 {isAn ? "An" : "A"}
