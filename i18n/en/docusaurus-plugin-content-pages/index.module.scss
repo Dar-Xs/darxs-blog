@@ -1,4 +1,12 @@
-
+@keyframes waving {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+}
 .banner {
   padding: 4rem 0;
   text-align: left;
@@ -14,6 +22,11 @@
       display: block;
       font-size: 24px;
       margin-left: 6px;
+      .wave {
+        display: inline-block;
+        animation: 1.3s ease-in-out 1s infinite waving;
+        transform-origin: 65% 65%;
+      }
     }
     strong {
       color: var(--ifm-color-primary-lightest);
@@ -21,22 +34,16 @@
   }
   .roleContent {
     font-size: 21px;
-
-    .VInlineBlock {
-      display: inline-block;
-      padding-right: 0.75em;
-      text-align: end;
-    }
     .role {
       font-weight: bold;
-      font-size: 36px;
+      font-size: 30px;
     }
   }
   .col {
     display: flex;
     justify-content: space-between;
     img {
-      height: 180px;
+      height: 256px;
     }
   }
 }
@@ -47,12 +54,12 @@
     flex-direction: column;
     justify-content: space-evenly;
     text-align: center;
-    .col {
-      flex-direction: column;
-      img {
-        object-fit: contain;
-      }
+  .col {
+    flex-direction: column;
+    img {
+      object-fit: contain;
     }
+  }
   }
 }
 
