@@ -2,8 +2,8 @@ import React from "react";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import Layout from "@theme/Layout";
-import DistortionString from "../components/DistortionString";
-import DownloadButton from "../components/DownloadButton";
+import DistortionString from "../../components/DistortionString";
+import DownloadButton from "../../components/DownloadButton";
 
 import styles from "./index.module.scss";
 
@@ -18,38 +18,29 @@ export default function Portfolio() {
             <div>
               <h1 className={clsx("hero__title", styles.title)}>
                 <span>
-                  Hello<span className={styles.wave}>👋</span>, 我叫
+                  欢迎光临 我的
                 </span>
-                <strong>熊</strong>若晗
+                <strong>作品</strong>集
               </h1>
               <div className={styles.roleContent}>
-                我是
+                这里有
                 <span className={clsx("margin-left--sm", styles.role)}>
                   <DistortionString
                     contents={[
-                      "Web 前端工程师",
-                      "iOS 开发工程师",
-                      "UI/UX 设计师",
-                      "开源开发者",
-                      "手工爱好者",
+                      "端到端加密聊天",
+                      "手搓2D游戏引擎",
+                      "精心设计的消息气泡",
+                      "Linux系统级编程",
+                      "渲染Latex公式",
+                      "数学刷题平台",
+                      "激动人心的德扑",
                     ]}
                   />
                 </span>
               </div>
-              <div className={styles.buttons}>
-                <DownloadButton fileName="resume.pdf" fileUrl="resume.pdf">
-                  简历
-                </DownloadButton>
-                <Link
-                  className="button button--link button--lg color-primary-lightest"
-                  to="/portfolio"
-                >
-                  作品
-                </Link>
-              </div>
             </div>
             <img
-              src="img/お兄ちゃんはおしまい25.png"
+              src="img/お兄ちゃんはおしまい34.png"
               alt="Image alt text"
               title="Logo Title Text 1"
             />

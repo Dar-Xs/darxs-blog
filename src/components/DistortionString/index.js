@@ -16,23 +16,22 @@ function randStringNear(string, radius) {
   const length = string.length;
   for (let i = 0; i < length; ++i) {
     const rand = Math.random();
+    if (rand >= radius) {
+      ans += string[i];
+      continue;
+    }
     if (isChinese(string[i])) {
-      if (rand >= radius) {
-        ans += string[i];
-      } else if (rand < (1 / 3) * radius) {
+      if (rand < (1 / 3) * radius) {
         ans += cht[i];
       } else if (rand < (2 / 3) * radius) {
         ans += hx[i];
-      } else if (rand < (5 / 6) * radius) {
-        ans += "▇";
       } else {
-        ans += "　";
+        const strs = "　，。、～！烫屯葺";
+        ans += strs[Math.floor(Math.random() * strs.length)];
       }
       continue;
     }
-    if (rand >= radius) {
-      ans += string[i];
-    } else if (rand < (2 / 3) * radius) {
+    if (rand < (2 / 3) * radius) {
       if (/[0-9]/.test(string[i])) {
         ans += "0123456789"[Math.floor(Math.random() * 10)];
       } else if (/[a-z]/.test(string[i])) {
@@ -106,7 +105,7 @@ export default function DistortionString({
       <div
         style={{
           fontFamily:
-            '"SF Mono", SFMono-Regular, ui-monospace, Menlo, monospace',
+            'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
         }}
       >
         {content}
