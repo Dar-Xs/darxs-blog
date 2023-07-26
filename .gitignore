@@ -21,3 +21,7 @@ yarn-debug.log*
 yarn-error.log*
 .yarn
 yarn.lock
+pnpm-lock.yaml
+
+# IDE settings
+.vscode
