@@ -30,5 +30,33 @@
   "sidebar.tutorialSidebar.category.Docker Compose": {
     "message": "Docker Compose",
     "description": "The label for category Docker Compose in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Backend": {
+    "message": "后端",
+    "description": "The label for category Backend in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Frontend": {
+    "message": "前端",
+    "description": "The label for category Frontend in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.HTML": {
+    "message": "HTML",
+    "description": "The label for category HTML in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.basis": {
+    "message": "基础",
+    "description": "The label for category basis in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.web-component": {
+    "message": "web-component",
+    "description": "The label for category web-component in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Network": {
+    "message": "网络",
+    "description": "The label for category Network in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Web Security": {
+    "message": "Web 安全",
+    "description": "The label for category Web Security in sidebar tutorialSidebar"
   }
 }

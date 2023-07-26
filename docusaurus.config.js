@@ -76,7 +76,7 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Notes',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {to: '/portfolio', label: 'Portfolio', position: 'left'},
@@ -155,7 +155,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © 2019 - ${new Date().getFullYear()} DarXs Team. Built with Docusaurus, Powered by Netlify.`,
+        copyright: `Copyright © 2019 - ${new Date().getFullYear()} DarXs · Built with Docusaurus · Powered by Netlify`,
       },
       colorMode: {
         defaultMode: 'light',

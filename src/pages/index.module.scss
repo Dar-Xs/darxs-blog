@@ -1,5 +1,6 @@
 @keyframes waving {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(0deg);
   }
   50% {
@@ -15,12 +16,16 @@
   flex-direction: row;
   .title {
     font-size: 72px;
+    margin-bottom: 0;
+    margin-left: -3px;
     span {
       display: block;
       font-size: 24px;
+      margin-left: 6px;
       .wave {
         display: inline-block;
-        animation: 1s ease-in-out 1s infinite waving;
+        animation: 1.3s ease-in-out 1s infinite waving;
+        transform-origin: 65% 65%;
       }
     }
     strong {
@@ -34,19 +39,34 @@
       font-size: 30px;
     }
   }
+  .col {
+    display: flex;
+    justify-content: space-between;
+    img {
+      height: 256px;
+    }
+  }
 }
 
 @media screen and (max-width: 996px) {
   .banner {
-    padding: 2rem;
+    padding: 4rem 2rem;
     flex-direction: column;
     justify-content: space-evenly;
+    text-align: center;
+  .col {
+    flex-direction: column;
+    img {
+      object-fit: contain;
+    }
+  }
   }
 }
 
 .buttons {
-  display: flex;
-  align-items: left;
-  justify-content: left;
+  margin-top: 2rem;
 }
-  
+
+.card {
+  margin-top: 1.5rem;
+}
