@@ -2,13 +2,12 @@ import React from "react";
 import clsx from "clsx";
 import Link from "@docusaurus/Link";
 import Layout from "@theme/Layout";
-import DistortionString from "../components/DistortionString";
-import DownloadButton from "../components/DownloadButton";
+import DistortionString from "@site/src/components/DistortionString";
+import DownloadButton from "@site/src/components/DownloadButton";
 
 import styles from "./index.module.scss";
 
-export default function Portfolio() {
-  // const [isAn, setIsAn] = useState(false);
+export default function Index() {
 
   return (
     <Layout>
