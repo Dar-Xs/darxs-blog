@@ -31,7 +31,9 @@
     "sass": "^1.62.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.4.1"
+    "@docusaurus/module-type-aliases": "2.4.1",
+    "node-sass": "^8.0.0",
+    "sass-loader": "^13.3.2"
   },
   "browserslist": {
     "production": [

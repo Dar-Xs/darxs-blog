@@ -16,11 +16,15 @@
     "description": "Navbar item with label Blog"
   },
   "item.label.Portfolio": {
-    "message": "作品集",
+    "message": "作品",
     "description": "Navbar item with label Portfolio"
   },
   "item.label.GitHub": {
     "message": "GitHub",
     "description": "Navbar item with label GitHub"
+  },
+  "item.label.Notes": {
+    "message": "笔记",
+    "description": "Navbar item with label Notes"
   }
 }

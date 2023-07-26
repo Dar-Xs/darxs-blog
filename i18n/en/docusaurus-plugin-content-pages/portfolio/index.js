@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
-import DistortionString from '../../components/DistortionString';
+import DistortionString from '@site/src/components/DistortionString';
 
 import styles from './index.module.scss';
 

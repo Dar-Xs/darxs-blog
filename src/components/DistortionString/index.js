@@ -96,7 +96,7 @@ export default function DistortionString({
     setInterval(() => {
       inputPromptVisibleTemp = !inputPromptVisibleTemp;
       setinputPromptVisible(inputPromptVisibleTemp);
-    }, 500);
+    }, 800);
   }, []);
 
   return (
