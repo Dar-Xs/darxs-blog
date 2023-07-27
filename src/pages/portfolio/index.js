@@ -80,7 +80,7 @@ export default function Portfolio() {
               <div className="card">
                 <div className="card__image">
                   <img
-                    src="img/football-1922-preview.png"
+                    src="/img/football-1922-preview.png"
                     alt="Image alt text"
                     title="Logo Title Text 1"
                   />
@@ -108,7 +108,7 @@ export default function Portfolio() {
               <div className="card">
                 <div className="card__image">
                   <img
-                    src="img/rsa-chat-web-ui-preview.png"
+                    src="/img/rsa-chat-web-ui-preview.png"
                     alt="Image alt text"
                     title="Logo Title Text 1"
                   />
@@ -136,7 +136,7 @@ export default function Portfolio() {
               <div className="card">
                 <div className="card__image">
                   <img
-                    src="img/cyber-casino-preview.png"
+                    src="/img/cyber-casino-preview.png"
                     alt="Image alt text"
                     title="Logo Title Text 1"
                   />
