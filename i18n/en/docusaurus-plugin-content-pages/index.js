@@ -34,6 +34,8 @@ export default function Index() {
                       "Craft Lovers",
                     ]}
                     setIsAn={setIsAn}
+                    charTime={60}
+                    rmCharTime={30}
                   />
                 </span>
               </div>
