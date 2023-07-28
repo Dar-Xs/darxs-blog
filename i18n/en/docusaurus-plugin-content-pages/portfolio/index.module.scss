@@ -21,12 +21,6 @@
   }
   .roleContent {
     font-size: 21px;
-
-    .VInlineBlock {
-      display: inline-block;
-      padding-right: 0.75em;
-      text-align: end;
-    }
     .role {
       font-weight: bold;
       font-size: 36px;
@@ -36,7 +30,7 @@
     display: flex;
     justify-content: space-between;
     img {
-      height: 180px;
+      height: 256px;
     }
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import Layout from "@theme/Layout";
+import Link from "@docusaurus/Link";
 import DistortionString from "@site/src/components/DistortionString";
 
 import styles from "./index.module.scss";
@@ -21,7 +22,7 @@ export default function Portfolio() {
               </h1>
               <div className={styles.roleContent}>
                 这里有
-                <span className={clsx("margin-left--sm", styles.role)}>
+                <div className={styles.role}>
                   <DistortionString
                     contents={[
                       "端到端加密聊天",
@@ -33,13 +34,13 @@ export default function Portfolio() {
                       "激动人心的德扑",
                     ]}
                   />
-                </span>
+                </div>
               </div>
             </div>
             <img
-              src="img/お兄ちゃんはおしまい34.png"
-              alt="Image alt text"
-              title="Logo Title Text 1"
+              src="/img/お兄ちゃんはおしまい34.png"
+              alt="舒适地靠在一边"
+              title="随便看看吧 ♫~"
             />
           </div>
         </div>
@@ -51,14 +52,18 @@ export default function Portfolio() {
             <div className={`${styles.card}`}>
               <div className="card">
                 <div className="card__image">
-                  <img
-                    src="img/math-latex-preview.png"
-                    alt="Image alt text"
-                    title="Logo Title Text 1"
-                  />
+                  <Link to="https://math.dar-xs.com">
+                    <img
+                      src="/img/math-latex-preview.png"
+                      alt="math-latex网页截图"
+                      title="Math Latex预览"
+                    />
+                  </Link>
                 </div>
                 <div className="card__body">
-                  <h4>Math Latex</h4>
+                  <Link to="https://math.dar-xs.com">
+                    <h4>Math Latex</h4>
+                  </Link>
                   <small>
                     使用 Latex 展示数学公式的刷题平台，提供了一个从图片迁移到
                     Latex 的解决方案
@@ -66,11 +71,18 @@ export default function Portfolio() {
                 </div>
                 <div className="card__footer">
                   <div className="button-group button-group--block">
-                    <button className="button button--secondary">Like</button>
-                    <button className="button button--secondary">
-                      Comment
-                    </button>
-                    <button className="button button--secondary">Share</button>
+                    <Link
+                      className="button button--secondary"
+                      to="https://math.dar-xs.com"
+                    >
+                      前往站点
+                    </Link>
+                    <Link
+                      className="button button--secondary"
+                      to="https://github.com/Dar-Xs/math-latex-client"
+                    >
+                      GitHub 仓库
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -81,23 +93,24 @@ export default function Portfolio() {
                 <div className="card__image">
                   <img
                     src="/img/football-1922-preview.png"
-                    alt="Image alt text"
-                    title="Logo Title Text 1"
+                    alt="进行中小游戏的截图"
+                    title="Football 1922 预览"
                   />
                 </div>
                 <div className="card__body">
                   <h4>football 1922</h4>
                   <small>
-                    跨平台局域网多人在线足球游戏，没有使用游戏引擎哦
+                    跨平台局域网多人在线足球游戏，没有使用游戏引擎哦 ♫~
                   </small>
                 </div>
                 <div className="card__footer">
                   <div className="button-group button-group--block">
-                    <button className="button button--secondary">Like</button>
-                    <button className="button button--secondary">
-                      Comment
-                    </button>
-                    <button className="button button--secondary">Share</button>
+                    <Link
+                      className="button button--secondary"
+                      to="/blog/start-from-scratch-multi-player-soccer-game"
+                    >
+                      查看博文
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -107,25 +120,36 @@ export default function Portfolio() {
             <div className={`${styles.card}`}>
               <div className="card">
                 <div className="card__image">
-                  <img
-                    src="/img/rsa-chat-web-ui-preview.png"
-                    alt="Image alt text"
-                    title="Logo Title Text 1"
-                  />
+                  <Link to="https://rsa.chat.darxs.cn">
+                    <img
+                      src="/img/rsa-chat-web-ui-preview.png"
+                      alt="RSA Chat 网页截图"
+                      title="RSA Web Chat 预览"
+                    />
+                  </Link>
                 </div>
                 <div className="card__body">
-                  <h4>RSA Chat Web UI</h4>
+                  <Link to="https://rsa.chat.darxs.cn">
+                    <h4>RSA Web Chat</h4>
+                  </Link>
                   <small>
                     用于端到端加密通信的 Web 网页，你可以用它安全地传递隐私数据
                   </small>
                 </div>
                 <div className="card__footer">
                   <div className="button-group button-group--block">
-                    <button className="button button--secondary">Like</button>
-                    <button className="button button--secondary">
-                      Comment
-                    </button>
-                    <button className="button button--secondary">Share</button>
+                    <Link
+                      className="button button--secondary"
+                      to="https://rsa.chat.darxs.cn"
+                    >
+                      前往站点
+                    </Link>
+                    <Link
+                      className="button button--secondary"
+                      to="https://github.com/Dar-Xs/RSA-Web-Chat"
+                    >
+                      GitHub 仓库
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -137,8 +161,8 @@ export default function Portfolio() {
                 <div className="card__image">
                   <img
                     src="/img/cyber-casino-preview.png"
-                    alt="Image alt text"
-                    title="Logo Title Text 1"
+                    alt="德州扑克网页截图"
+                    title="德州扑克 Web 端预览"
                   />
                 </div>
                 <div className="card__body">
@@ -150,11 +174,12 @@ export default function Portfolio() {
                 </div>
                 <div className="card__footer">
                   <div className="button-group button-group--block">
-                    <button className="button button--secondary">Like</button>
-                    <button className="button button--secondary">
-                      Comment
-                    </button>
-                    <button className="button button--secondary">Share</button>
+                    <Link
+                      className="button button--secondary"
+                      to="/blog/texas-game-web-full-stack-development"
+                    >
+                      查看博文
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -20,6 +20,10 @@ function randStringNear(string, radius) {
       ans += string[i];
       continue;
     }
+    if (string[i] == " ") {
+      ans += "\u00A0";
+      continue;
+    }
     if (isChinese(string[i])) {
       if (rand < (1 / 3) * radius) {
         ans += cht[i];
@@ -42,7 +46,7 @@ function randStringNear(string, radius) {
     } else if (rand < (5 / 6) * radius) {
       ans += "_";
     } else {
-      ans += " ";
+      ans += "\u00A0";
     }
   }
   return ans;
@@ -56,6 +60,9 @@ export default function DistortionString({
     "iOS Developer",
   ],
   setIsAn = (isAn) => {},
+  charTime = 100,
+  rmCharTime = 50,
+  holdTime = 3000,
 }) {
   const [content, setContent] = useState(contents[0] || "");
   const [inputPromptVisible, setinputPromptVisible] = useState(true);
@@ -78,17 +85,17 @@ export default function DistortionString({
       callback(i / n);
       i--;
       if (i >= 0) {
-        setTimeout(loop, 100);
+        setTimeout(loop, charTime);
       } else {
         i = 0;
-        setTimeout(loopRevers, 3000);
+        setTimeout(loopRevers, holdTime);
       }
     };
     const loopRevers = () => {
       callback(i / n);
       i++;
       if (i < n) {
-        setTimeout(loopRevers, 50);
+        setTimeout(loopRevers, rmCharTime);
       } else {
         contentsIndex = (contentsIndex + 1) % contents.length;
         n = contents[contentsIndex].length;
