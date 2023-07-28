@@ -48,18 +48,34 @@
   }
 }
 
+.badges {
+  display: flex;
+  flex-direction: column;
+  img {
+    height: 36px;
+    margin-right: 0.5rem;
+  }
+}
+
 @media screen and (max-width: 996px) {
   .banner {
     padding: 4rem 2rem;
     flex-direction: column;
     justify-content: space-evenly;
     text-align: center;
-  .col {
-    flex-direction: column;
-    img {
-      object-fit: contain;
+    .col {
+      flex-direction: column;
+      img {
+        object-fit: contain;
+      }
     }
   }
+
+  .badges {
+    text-align: center;
+    img {
+      margin: 0 0.25rem;
+    }
   }
 }
 
