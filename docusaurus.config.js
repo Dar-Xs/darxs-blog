@@ -155,7 +155,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © 2019 - ${new Date().getFullYear()} DarXs · Built with Docusaurus · Powered by Netlify`,
+        copyright: `Copyright © 2019 - ${new Date().getFullYear()} DarXs · Built with Docusaurus · Powered by Netlify · <a href=\"https://icp.gov.moe/?keyword=20232192\" target=\"_blank\">萌ICP备20232192号</a>`,
       },
       colorMode: {
         defaultMode: 'light',
