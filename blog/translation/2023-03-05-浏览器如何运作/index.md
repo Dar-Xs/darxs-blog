@@ -13,22 +13,22 @@ authors:
   - Dar-Xs
 tags: [解析, 浏览器, BNF, CSS, DOM, HTML, JavaScript]
 ---
-现代web浏览器的背后
+现代 web 浏览器的背后
 
-英文原文于 2011 年 8 月 5 日发布在 [web.dev](https://web.dev) 上（[原文链接](https://web.dev/howbrowserswork/)）
+英文原文于 2011 年 8 月 5 日发布在 [web.dev](https://web.dev) 上 ([原文链接](https://web.dev/howbrowserswork/))
 
 ## 序
 
 　　这份关于 WebKit 和 Gecko 内部操作的全面入门材料，是以色列开发人员 Tali Garsiel 所做的大量研究的结果。在过去的几年里，她审阅了所有关于浏览器内部结构的公开数据，并花了大量时间阅读网络浏览器的源代码。她写道:
 
 :::info Tali Garsiel:
-　　在IE占据90%市场的那些年里，我们除了将浏览器视为“黑盒”外，没有什么可做的。但现在，随着开源浏览器占据了[超过一半的市场份额](http://techcrunch.com/2011/08/01/open-web-browsers/)，是时候窥探一下引擎的核心，看看web浏览器内部是什么了。好吧，里面有数百万行的C++代码……
+　　在IE占据 90% 市场的那些年里，我们除了将浏览器视为“黑盒”外，没有什么可做的。但现在，随着开源浏览器占据了[超过一半的市场份额](http://techcrunch.com/2011/08/01/open-web-browsers/)，是时候窥探一下引擎的核心，看看 web 浏览器内部是什么了。好吧，里面有数百万行的 C++ 代码……
 :::
 
 <!--truncate-->
-　　Tali在[她的网站](http://taligarsiel.com/)上发表了她的研究，但我们知道这值得被广泛传播，所以我们把它整理了一下，并在这里重新发表。
+　　Tali 在[她的网站](http://taligarsiel.com/)上发表了她的研究，但我们知道这值得被广泛传播，所以我们把它整理了一下，并在这里重新发表。
 
-> 　　作为一名web开发人员，**了解浏览器内部的操作原理可以帮助你做出更好的决策，并了解最佳开发方法背后的理由**。虽然这是一个相当长的文档，但我们建议您花些时间深入研究。我们保证你研究完之后会很满意。
+> 　　作为一名 web 开发人员，**了解浏览器内部的操作原理可以帮助你做出更好的决策，并了解最佳开发方法背后的理由**。虽然这是一个相当长的文档，但我们建议您花些时间深入研究。我们保证你研究完之后会很满意。
 > 
 >  -- _Paul Irish, Chrome Developer Relations_
 
@@ -39,68 +39,68 @@ tags: [解析, 浏览器, BNF, CSS, DOM, HTML, JavaScript]
 ## 我们将要讨论的浏览器
 
 
-　　现在有五种主要的桌面浏览器：Chrome, Internet Explorer, Firefox, Safari 和 Opera。在移动端，主要的浏览器有 Android 浏览器、iPhone、Opera Mini 和 Opera mobile、UC 浏览器、Nokia S40/S60 浏览器和 Chrome。在这其中，除了 Opera 浏览器，其他浏览器都基于 WebKit。我将从开源浏览器 Firefox 和 Chrome 以及 Safari（部分开源）中举例。根据 [StatCounter 的统计数据](http://gs.statcounter.com/)（截至 2013 年 6 月），Chrome、Firefox 和 Safari 占据了全球桌面浏览器使用量的 71% 左右。在移动设备上，Android 浏览器、iPhone 和 Chrome 的使用率约为 54%。
+　　现在有五种主要的桌面浏览器：Chrome, Internet Explorer, Firefox, Safari 和 Opera。在移动端，主要的浏览器有 Android 浏览器、iPhone、Opera Mini 和 Opera mobile、UC 浏览器、Nokia S40/S60 浏览器和 Chrome。在这其中，除了 Opera 浏览器，其他浏览器都基于 WebKit。我将从开源浏览器 Firefox 和 Chrome 以及 Safari (部分开源) 中举例。根据 [StatCounter 的统计数据](http://gs.statcounter.com/) (截至 2013 年 6 月)，Chrome、Firefox 和 Safari 占据了全球桌面浏览器使用量的 71% 左右。在移动设备上，Android 浏览器、iPhone 和 Chrome 的使用率约为 54%。
 
 ## 浏览器的主要功能
 
-浏览器的主要功能是，从服务器请求所选择的web资源，并在浏览器窗口中显示它们。这些资源通常是HTML文档，但也可能是PDF、图像或其他类型的内容。资源的位置由用户使用URI(Uniform Resource Identifier统一资源标识符)指定。
+浏览器的主要功能是，从服务器请求所选择的 web 资源，并在浏览器窗口中显示它们。这些资源通常是HTML文档，但也可能是 PDF、图像或其他类型的内容。资源的位置由用户使用 URI (Uniform Resource Identifier，统一资源标识符) 指定。
 
-浏览器解释和显示HTML文件的方式由HTML和CSS的规范指定。这些规范由W3C(World Wide Web Consortium万维网联盟)组织维护，该组织是web的标准组织。多年来，浏览器只遵循了部分规范，并开发了自己的扩展。这给网页作者带来了严重的兼容性问题。如今，大多数浏览器或多或少都符合规范。
+浏览器解释和显示 HTML 文件的方式由 HTML 和 CSS 的规范指定。这些规范由 W3C (World Wide Web Consortium，万维网联盟) 组织维护，该组织是 web 的标准组织。多年来，浏览器只遵循了部分规范，并开发了自己的扩展。这给网页作者带来了严重的兼容性问题。如今，大多数浏览器或多或少都符合规范。
 
 浏览器用户界面之间有很多共同之处。常见的用户界面元素有:
 
-1. 用于插入URI的地址栏
+1. 用于插入 URI 的地址栏
 2. 后退和前进按钮
 3. 书签选项
 4. 刷新和停止按钮，用于刷新或停止对当前文档的加载
-5. 返回主页的Home按钮
+5. 返回主页的 Home 按钮
 
-奇怪的是，没有任何正式的规范指定了浏览器的用户界面。这只是来自于多年的经验和浏览器相互模仿而形成的良好结果。HTML5规范没有定义浏览器必须拥有的UI(User Interface，用户界面)元素，但还是列出了一些常见元素。其中包括地址栏、状态栏和工具栏。当然，某些浏览器也有其独特的功能，比如Firefox的下载管理器。
+奇怪的是，没有任何正式的规范指定了浏览器的用户界面。这只是来自于多年的经验和浏览器相互模仿而形成的良好结果。HTML5 规范没有定义浏览器必须拥有的 UI (User Interface，用户界面) 元素，但还是列出了一些常见元素。其中包括地址栏、状态栏和工具栏。当然，某些浏览器也有其独特的功能，比如 Firefox 的下载管理器。
 
 ## 浏览器的宏观结构
 
 浏览器的主要组成部分有：
 
   1. **用户界面**：包括地址栏、后退/前进按钮、书签菜单等。这包含浏览器显示的每个部分，除了您查看请求页面的窗口。
-  1. **浏览器引擎**：整合渲染引擎并构建UI。
-  2. **渲染引擎**：负责显示请求的内容。例如，如果请求的内容是HTML页面，呈现引擎将解析HTML和CSS，并在屏幕上显示解析后的内容。
-  3. **网络**：对于网络调用(如HTTP请求)，在与平台无关的接口后面使用针对不同平台的不同实现。
-  4. **UI后端**：用于绘制基本的小部件，如组件(combo box)和窗口。这个后端暴露了一个平台通用的接口。它向下直接调用操作系统UI相关的方法。
-  5. **JavaScript解释器**：用于解析和执行JavaScript代码。
-  6. **数据存储**：这是一个持久层。浏览器可能需要在本地保存各种数据，比如cookie。浏览器还支持localStorage、IndexedDB、WebSQL和文件系统等存储机制。
+  1. **浏览器引擎**：整合渲染引擎并构建 UI。
+  2. **渲染引擎**：负责显示请求的内容。例如，如果请求的内容是 HTML 页面，呈现引擎将解析 HTML 和 CSS，并在屏幕上显示解析后的内容。
+  3. **网络**：对于网络调用 (如 HTTP 请求)，在与平台无关的接口后面使用针对不同平台的不同实现。
+  4. **UI 后端**：用于绘制基本的小部件，如组件 (combo box) 和窗口。这个后端暴露了一个平台通用的接口。它向下直接调用操作系统 UI 相关的方法。
+  5. **JavaScript 解释器**：用于解析和执行 JavaScript 代码。
+  6. **数据存储**：这是一个持久层。浏览器可能需要在本地保存各种数据，比如 cookie。浏览器还支持 localStorage、IndexedDB、WebSQL 和文件系统等存储机制。
 
 <figure align="center">
-  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/PgPX6ZMyKSwF6kB8zIhB.png" alt="Browser components" width="500" height="339" />
-  <figcaption>Figure 1: Browser components</figcaption>
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/PgPX6ZMyKSwF6kB8zIhB.png" alt="浏览器组件" width="500" height="339" />
+  <figcaption>图片 1: 浏览器成</figcaption>
 </figure>
 
-需要注意的是，浏览器(如Chrome)会运行多个渲染引擎实例：每个页面一个实例。每个页面在单独的进程中运行。
+需要注意的是，浏览器 (如 Chrome) 会运行多个渲染引擎实例：每个页面一个实例。每个页面在单独的进程中运行。
 
 ## 渲染引擎
 
 渲染引擎的职责嘛…就是渲染，即在浏览器屏幕上显示所请求的内容。
 
-默认情况下，渲染引擎可以显示HTML和XML文档和图像。它可以通过安装插件或扩展来显示其他类型的数据。例如，使用PDF查看器插件显示PDF文档。然而，在本章中，我们将关注主要的用例：显示使用CSS格式化的HTML和图像。
+默认情况下，渲染引擎可以显示 HTML 和 XML 文档和图像。它可以通过安装插件或扩展来显示其他类型的数据。例如，使用 PDF 查看器插件显示 PDF 文档。然而，在本章中，我们将关注主要的用例：显示使用 CSS 格式化的 HTML 和图像。
 
 ## 多种渲染引擎
 
-不同的浏览器使用不同的渲染引擎：Internet Explorer使用Trident, Firefox使用Gecko, Safari使用WebKit。Chrome和Opera(从版本15开始)使用Blink，这是WebKit的一个分支。
+不同的浏览器使用不同的渲染引擎：Internet Explorer 使用 Trident, Firefox 使用 Gecko, Safari 使用 WebKit。Chrome 和 Opera (从版本 15 开始) 使用 Blink，这是 WebKit 的一个分支。
 
-WebKit是一个开源的渲染引擎，最初用于Linux平台，后来被苹果修改为支持Mac和Windows。详情请参见[webkit.org](http://webkit.org/)。
+WebKit 是一个开源的渲染引擎，最初用于 Linux 平台，后来被苹果修改为支持 Mac 和 Windows。详情请参见[webkit.org](http://webkit.org/)。
 
 ## 渲染的主要流程
 
-渲染引擎将开始从网络层获取所请求文档的内容。这些内容通常被分为很多8kB的块。
+渲染引擎将开始从网络层获取所请求文档的内容。这些内容通常被分为很多 8kB 的块。
 
 以下是渲染引擎的基本流程:
 
 <figure align="center">
-  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/bPlYx9xODQH4X1KuUNpc.png" alt="Rendering engine basic flow" width="600" height="66" />
-  <figcaption>Figure 2: Rendering engine basic flow</figcaption>
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/bPlYx9xODQH4X1KuUNpc.png" alt="渲染引擎的基本流程" width="600" height="66" />
+  <figcaption>图片 2: 渲染引擎的基本流程</figcaption>
 </figure>
 
 The rendering engine will start parsing the HTML document and convert elements to [DOM](#dom) nodes in a tree called the "content tree". The engine will parse the style data, both in external CSS files and in style elements. Styling information together with visual instructions in the HTML will be used to create another tree: the [render tree](#render-tree-construction).
-渲染引擎将开始解析HTML文档，并将元素转换为称为“content tree”的树中的DOM节点。引擎将解析外部CSS文件和样式元素中的样式数据。样式信息和HTML中的可视指令将用于创建另一棵树：渲染树。
+渲染引擎将开始解析 HTML 文档，并将元素转换为称为 “content tree” 的树中的 DOM 节点。引擎将解析外部 CSS 文件和样式元素中的样式数据。样式信息和 HTML 中的可视指令将用于创建另一棵树：渲染树。
 
 渲染树包含具有颜色和尺寸等视觉属性的矩形渲染区域。这些矩形以正确的次序显示在屏幕上。
 
@@ -109,23 +109,23 @@ This means giving each node the exact coordinates where it should appear on the 
 The next stage is [painting](#painting) - the render tree will be traversed and each node will be painted using the UI backend layer.
 在构建渲染树之后，它会经历一个“[布局](#布局)”过程。这意味着为树中每个节点提供它应该出现在屏幕上的确切坐标。下一个阶段是[绘制](#绘制)——渲染树将被遍历，每个节点将使用UI后端层绘制。
 
-重要的是要明白，这是一个渐进的过程。为了更好的用户体验，渲染引擎会尽量在屏幕上尽快显示内容。它不会等到所有HTML都解析完毕后才开始构建和布局渲染树。部分内容将提前被解析和显示，而随着来自网络的其余内容到达，该过渲染过程将继续。
+重要的是要明白，这是一个渐进的过程。为了更好的用户体验，渲染引擎会尽量在屏幕上尽快显示内容。它不会等到所有 HTML 都解析完毕后才开始构建和布局渲染树。部分内容将提前被解析和显示，而随着来自网络的其余内容到达，该过渲染过程将继续。
 
-### Main flow examples
+### 主要流程的实际例子
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/S9TJhnMX1cu1vrYuQRqM.png" alt="WebKit main flow." width="624" height="289" />
-  <figcaption>Figure 3: WebKit main flow</figcaption>
+  <figcaption>图片 3: WebKit 主要流程</figcaption>
 </figure>
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/Tbif2mUJCUVyPdyXntZk.jpg" alt="Mozilla's Gecko rendering engine main flow." width="624" height="290" />
-  <figcaption>Figure 4: Mozilla's Gecko rendering engine main flow</figcaption>
+  <figcaption>图片 4: Mozilla 旗下的 Gecko 渲染引擎的主要流程</figcaption>
 </figure>
 
-Mozilla 的 Gecko 渲染引擎从图3和图4可以看到，尽管WebKit和Gecko使用的术语略有不同，但流程基本上是相同的。
+Mozilla 的 Gecko 渲染引擎从图 3 和图 4 可以看到，尽管 WebKit 和 Gecko 使用的术语略有不同，但流程基本上是相同的。
 
-Gecko称视觉上格式化的元素树为“Frame tree”。每个元素都是一个Frame。WebKit使用术语“Render Tree”，它由“Render Objects”组成。WebKit使用术语“Layout”来放置元素，而Gecko称之为“Reflow”。“Attachment”是WebKit用于连接DOM节点和可视信息以创建渲染树的术语。一个微小的非语义差异是，Gecko在HTML和DOM树之间有一个额外的层。它被称为“Content Sink”(内容槽)，是制作DOM元素的工厂。我们将讨论流程的每个部分:
+Gecko 称视觉上格式化的元素树为“Frame tree”。每个元素都是一个 Frame。WebKit 使用术语“Render Tree”，它由“Render Objects”组成。WebKit 使用术语“Layout”来放置元素，而 Gecko 称之为“Reflow”。“Attachment”是 WebKit 用于连接 DOM 节点和可视信息以创建渲染树的术语。一个微小的非语义差异是，Gecko 在 HTML 和 DOM 树之间有一个额外的层。它被称为“Content Sink”(内容槽)，是制作 DOM 元素的工厂。我们将讨论流程的每个部分:
 
 ### 解析-简介
 
@@ -133,11 +133,11 @@ Gecko称视觉上格式化的元素树为“Frame tree”。每个元素都是�
 
 解析文档意味着将其转换为程序可以使用的结构。解析的结果通常是表示文档结构的节点树。这被称为解析树(parse tree)或语法树。
 
-For example, parsing the expression `2 + 3 - 1` could return this tree:
+例如，解析表达式 `2 + 3 - 1` 将返回下面这个解析树：
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/xNQUG9emGd8FzuOpumP7.png" alt="Mathematical expression tree node." width="400" height="155" />
-  <figcaption>Figure 5: mathematical expression tree node</figcaption>
+  <figcaption>图片 5: 数学表达式的树节点</figcaption>
 </figure>
 
 ### Grammars
@@ -145,23 +145,23 @@ For example, parsing the expression `2 + 3 - 1` could return this tree:
 Parsing is based on the syntax rules the document obeys: the language or format it was written in.
 Every format you can parse must have deterministic grammar consisting of vocabulary and syntax rules. It is called a
 [context free grammar](#context_free_grammar). Human languages are not such languages and therefore cannot be parsed with conventional parsing techniques.
-解析过程基于文档的句法(syntax，语言中单词或语句的排列方式)。文档遵循的句法，指的是编写文档的语言或格式。每种可以解析的格式都必须具有确定的语法(grammar，语言的整体结构和用法)，一般由词汇和句法规则组成。这被称为上下文无关语法。人类语言不是这样的语言，因此不能用传统的解析技术进行解析。
+解析过程基于文档的句法 (syntax，语言中单词或语句的排列方式)。文档遵循的句法，指的是编写文档的语言或格式。每种可以解析的格式都必须具有确定的语法 (grammar，语言的整体结构和用法)，一般由词汇和句法规则组成。这被称为上下文无关语法。人类语言不是这样的语言，因此不能用传统的解析技术进行解析。
 
-### 解析器-词法分析器(Lexer)的组合
+### 解析器-词法分析器 (Lexer) 的组合
 
-解析过程可以分为两个子过程：词法分析(lexical analysis)和句法分析。
+解析过程可以分为两个子过程：词法分析 (lexical analysis) 和句法分析。
 
-词法分析是将程序输入分解为标记(Token)的过程。标记是语言的词汇，即有效构组成成分的集合。在人类语言中，它由词典中出现的该语言的所有单词组成。
+词法分析是将程序输入分解为标记 (Token) 的过程。标记是语言的词汇，即有效构组成成分的集合。在人类语言中，它由词典中出现的该语言的所有单词组成。
 
 句法分析是运用语言句法的规则。
 
-解析器通常将任务划分为两个部分：**词法分析器**(有时称为标记器，tokenizer)负责将输入分解为有效的标记；**解析器**负责根据句法规则分析文档结构，来构造解析树。
+解析器通常将任务划分为两个部分：**词法分析器** (有时称为标记器，tokenizer) 负责将输入分解为有效的标记；**解析器**负责根据句法规则分析文档结构，来构造解析树。
 
 词法分析器知道如何去除不相关的字符，如空格和换行符。
 
 <figure align="center">
-  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/TfY1qPDNbZS8iBnlAO4b.png" alt="From source document to parse trees" width="101" height="300" />
-  <figcaption>Figure 6: from source document to parse trees</figcaption>
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/TfY1qPDNbZS8iBnlAO4b.png" alt="根据原文档构建解析树" width="101" height="300" />
+  <figcaption>图片 6：根据原文档构建解析树</figcaption>
 </figure>
 
 解析过程是迭代的。解析器通常会向词法分析器请求一个新的标记，并尝试将该标记与语法规则之一匹配。如果匹配到规则，则与该标记对应的节点将被添加到解析树中，解析器将请求另一个标记。
@@ -174,12 +174,12 @@ Every format you can parse must have deterministic grammar consisting of vocabul
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/VhoUBTyHWNnnZJiIfRAo.png" alt="Compilation flow" width="104" height="400" />
-  <figcaption>Figure 7: compilation flow</figcaption>
+  <figcaption>图片 7：编译过程</figcaption>
 </figure>
 
-### Parsing example
+### 解析过程的例子
 
-在图5中，我们根据一个数学表达式构建了解析树。让我们尝试定义一种简单的数学语言，并观察解析表达式的过程。
+在图 5 中，我们根据一个数学表达式构建了解析树。让我们尝试定义一种简单的数学语言，并观察解析表达式的过程。
 
 :::info 关键术语
 我们的语言可以包括整数、加号和减号。
@@ -192,29 +192,29 @@ Every format you can parse must have deterministic grammar consisting of vocabul
 4. 一个“操作”是一个“加号”或“减号”
 5. “项”是一个“整数”或“表达式”
 
-我们分析一下输入 `2 + 3 - 1`.
+我们分析一下输入 `2 + 3 - 1`。
 
-The first substring that matches a rule is `2`: according to rule #5 it is a term.
-The second match is `2  + 3`: this matches the third rule: a term followed by an operation followed by another term.
-The next match will only be hit at the end of the input.
-`2 + 3 - 1` is an expression because we already know that `2 + 3`is a term, so we have a term followed by an operation followed by another term.
-`2 + +` will not match any rule and therefore is an invalid input.
+配规则的第一个子字符串是 `2`：根据规则 #5，它是一个项。
+第二个匹配是 `2 + 3`，它匹配规则 #3：一个项后面跟着一个操作，后面跟着另一个项。
+下一个匹配只会在输入的末尾被确认。
+`2 + 3 - 1` 是一个表达式，因为我们已经知道 `2 + 3` 是一个项，所以我们有一个项，后面跟着一个运算，后面跟着另一个项。
+`2 + +` 不会匹配任何规则，因此是无效输入。
 
-### Formal definitions for vocabulary and syntax
+### 词汇和句法的正式定义
 
-Vocabulary is usually expressed by [regular expressions](http://www.regular-expressions.info/).
+词汇表通常由[正则表达式](http://www.regular-expressions.info/)表示。
 
-For example our language will be defined as:
+例如，将我们语言的词汇定义为:
 ```js
 INTEGER: 0|[1-9][0-9]*
 PLUS: +
 MINUS: -
 ```
 
-As you see, integers are defined by a regular expression.
+如您所见，整数是由正则表达式定义的。
 
-Syntax is usually defined in a format called [BNF](http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form).
-Our language will be defined as:
+句法通常以一种称为 [BNF](http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form) (Backus–Naur form，逆波兰表达式) 的格式定义。
+我们的语言被定义为:
 
 ```js
 expression :=  term  operation  term
@@ -222,116 +222,86 @@ operation :=  PLUS | MINUS
 term := INTEGER | expression
 ```
 
-We said that a language can be parsed by regular parsers if its grammar is a context free grammar.
-An intuitive definition of a context free grammar is a grammar that can be entirely expressed in BNF.
-For a formal definition see
-[Wikipedia's article on Context-free grammar](http://en.wikipedia.org/wiki/Context-free_grammar)
+我们说过，如果一种语言的语法是与上下文无关的语法，那么它就可以被常规解析器解析。
+上下文无关语法的直观定义是，可以完全用 BNF 表示的语法。
+有关 BNF 的正式定义，请参阅维基百科的文章：[上下文无关语法](http://en.wikipedia.org/wiki/Context-free_grammar)
 
-### Types of parsers
+### 解析器的类型
 
-There are two types of parsers: top down parsers and bottom up parsers. An intuitive explanation is that top down parsers examine the high level structure of the syntax and try to find a rule match. Bottom up parsers start with the input and gradually transform it into the syntax rules, starting from the low level rules until high level rules are met.
+有两种类型的解析器：自顶向下解析器和自底向上解析器。一种直观的解释是，自顶向下解析器检查语法的高级结构，并试图找到匹配的规则。自底向上解析器从输入开始，逐步将其转换为语法规则，从低级规则开始，直到满足高级规则。
 
-Let's see how the two types of parsers will parse our example.
+让我们看看这两种类型的解析器将如何解析我们的示例。
 
-The top down parser will start from the higher level rule: it will identify `2 + 3` as an expression. It will then identify `2 + 3 - 1` as an expression (the process of identifying the expression evolves, matching the other rules, but the start point is the highest level rule).
+自顶向下解析器将从更高级别的规则开始：它将把 `2 + 3` 标识为表达式。然后，它将 `2 + 3 - 1` 标识为表达式 (识别表达式的过程不断推进，匹配其他规则，但起点是最高级别的规则)。
 
-The bottom up parser will scan the input until a rule is matched. It will then replace the matching input with the rule. This will go on until the end of the input.
-The partly matched expression is placed on the parser's stack.
+自底向上解析器将按一个方向扫描输入，直到匹配到规则。然后它将用规则替换匹配的输入。这将一直持续到输入的结束。部分匹配的表达式放在解析器的堆栈上。
 
-<div class="table-wrapper scrollbar">
-  <table>
-    <thead>
-      <tr>
-        <th>Stack</th>
-        <th>Input</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td></td>
-        <td>2 + 3 - 1</td>
-      </tr>
-      <tr>
-        <td>term</td>
-        <td>+ 3 - 1</td>
-      </tr>
-      <tr>
-        <td>term operation</td>
-        <td>3 - 1</td>
-      </tr>
-      <tr>
-        <td>expression</td>
-        <td>- 1</td>
-      </tr>
-      <tr>
-        <td>expression operation</td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td>expression</td>
-        <td>-</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-This type of bottom up parser is called a shift-reduce parser, because the input is shifted to the right (imagine a pointer pointing first at the input start and moving to the right) and is gradually reduced to syntax rules.
 
-### Generating parsers automatically
+|栈          |输入       |
+|------------|----------|
+|            |2 + 3 - 1 |
+|项          |+ 3 - 1   |
+|项 操作符    |3 - 1     |
+|表达式       |- 1       |
+|表达式 操作符 |1         |
+|表达式       |          |
 
-There are tools that can generate a parser. You feed them the grammar of your language - its vocabulary and syntax rules - and they generate a working parser.
-Creating a parser requires a deep understanding of parsing and it's not easy to create an optimized parser by hand, so parser generators can be very useful.
+这种类型的自底向上解析器称为 shift-reduce 解析器，因为输入是向右移动的 (想象一个指针首先指向输入起点并向右移动)，并且逐渐被简化为句法规则。
 
-WebKit uses two well known parser generators: [Flex](http://en.wikipedia.org/wiki/Flex_lexical_analyser) for creating a lexer and [Bison](http://www.gnu.org/software/bison/) for creating a parser (you might run into them with the names Lex and Yacc).
-Flex input is a file containing regular expression definitions of the tokens.
-Bison's input is the language syntax rules in BNF format.
+### 自动生成解析器
 
-## HTML Parser
+有一些工具可以生成解析器。你向它们提供你的语言的语法——词汇和语法规则——它们就会生成一个可以工作的解析器。解析器生成器可能非常有用，因为手动创建并优化出一个解析器并不容易。手动创建解析器需要非常深入地理解解析过程。
 
-The job of the HTML parser is to parse the HTML markup into a parse tree.
+WebKit 使用了两个著名的解析器生成器：用于创建词法分析器的 [Flex](https://en.wikipedia.org/wiki/Flex_(lexical_analyser_generator))，和用于创建解析器的 [Bison](http://www.gnu.org/software/bison/) (您可能会在它们中遇到 Lex 和 Yacc 这两个名称)。
+Flex 的输入是一个包含标记的正则表达式定义的文件。
+Bison 的输入是 BNF 格式的语言语法规则。
 
-### The HTML grammar definition
+## HTML 解析器
 
-The vocabulary and syntax of HTML are defined in specifications created by the W3C organization.
+HTML 解析器的任务是将 HTML 标记解析为解析树。
 
-### Not a context free grammar
+### HTML 语法定义
 
-As we have seen in the parsing introduction, grammar syntax can be defined formally using formats like BNF.
+HTML 的词汇和语法在 W3C 组织创建的规范中定义。
 
-Unfortunately all the conventional parser topics do not apply to HTML (I didn't  bring them up just for fun - they will be used in parsing CSS and JavaScript).
-HTML cannot easily be defined by a context free grammar that parsers need.
+### 不是上下文无关的语法
 
-There is a formal format for defining HTML - DTD (Document Type Definition) - but it is not a context free grammar.
+正如我们在解析的介绍中所看到的，语法的句法可以用像 BNF 这样的格式正式定义。
 
-This appears strange at first sight; HTML is rather close to XML. There are lots of available XML parsers.
-There is an XML variation of HTML - XHTML - so what's the big difference?
+不幸的是，所有传统的解析器主题都不适用于 HTML (我提出它们并不是为了好玩 —— 它们将用于解析 CSS 和 JavaScript)。HTML 不能轻易地用解析器需要的上下文无关语法来定义。
 
-The difference is that the HTML approach is more "forgiving": it lets you omit certain tags (which are then added implicitly), or sometimes omit start or end tags, and so on.
-On the whole it's a "soft" syntax, as opposed to XML's stiff and demanding syntax.
+定义 HTML 有一个正式的格式 —— DTD (Document Type Definition，文档类型定义) —— 但它不是一个与上下文无关的语法。
 
-This seemingly small detail makes a world of a difference.
-On one hand this is the main reason why HTML is so popular: it forgives your mistakes and makes life easy for the web author.
-On the other hand, it makes it difficult to write a formal grammar. So to summarize, HTML cannot be parsed easily by conventional parsers, since its grammar is not context free. HTML cannot be parsed by XML parsers.
+乍一看，这似乎很奇怪；HTML 非常接近XML。有很多可用的 XML 解析器。
+HTML 有一种 XML 变体 —— XHTML —— 这有什么很大的区别吗?
+
+区别在于 HTML 方法更“宽容”：它允许您省略某些标记(然后隐式添加)，或者有时省略开始或结束标记，等等。
+总的来说，它是一种“软”语法，与 XML 的僵硬和苛刻的语法相反。
+
+这个看起来很小的细节却有很大的不同。
+一方面，这是 HTML 如此受欢迎的主要原因：它可以容忍你的错误，让网页作者的生活更轻松。
+另一方面，它使编写正式语法变得困难。总而言之，传统的解析器无法轻松解析 HTML，因为它的语法并不是上下文无关的。HTML 不能被 XML 解析器解析。
 
 ### HTML DTD
 
-HTML definition is in a DTD format. This format is used to define languages of the [SGML](http://en.wikipedia.org/wiki/Standard_Generalized_Markup_Language) family. The format contains definitions for all allowed elements, their attributes and hierarchy. As we saw earlier, the HTML DTD doesn't form a context free grammar.
 
-There are a few variations of the DTD. The strict mode conforms solely to the specifications but other modes contain support for markup used by browsers in the past. The purpose is backwards compatibility with older content.
-The current strict DTD is here:
+HTML 的定义采用 DTD 格式。此格式用来定义 SGML (Standard Generalized Markup Language，标准通用标记语言) 家族的语言。该格式包含所有允许的元素、它们的属性和层次结构的定义。正如我们前面看到的，HTML 的 DTD 没有形成与上下文无关的语法。
+
+DTD 有一些变体。DTD 的严格模式完全符合规范；但其他模式包含对过去浏览器使用的标记的支持，目的是向后兼容旧内容。
+当前的严格 DTD 在这里：
 [www.w3.org/TR/html4/strict.dtd](http://www.w3.org/TR/html4/strict.dtd)
 
 ### DOM
 
-The output tree (the "parse tree") is a tree of DOM element and attribute nodes.
-DOM is short for Document Object Model.
-It is the object presentation of the HTML document and the interface of HTML elements to the outside world like JavaScript.
+输出树(“解析树”)是 DOM 元素和属性节点的树。
+DOM 是文档对象模型的简称。
+它是 HTML 文档的对象表示，也是 HTML 元素与外部世界的接口，就像 JavaScript 一样。
 
-The root of the tree is the "[Document](http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html#i-Document)" object.
+树的根是“[Document](http://www.w3.org/TR/1998/REC-DOM-Level-1-19981001/level-one-core.html#i-Document)”对象。
 
-
-The DOM has an almost one-to-one relation to the markup.
-For example:
+DOM 与标记的关系几乎是一对一的。
+例如:
 
 ```html
 <html>
@@ -344,55 +314,54 @@ For example:
 </html>
 ```
 
-This markup would be translated to the following DOM tree:
+该标记将被转换为以下 DOM 树:
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/DNtfwOq9UaC3TrEj3D9h.png" alt="DOM tree of the example markup" width="400" height="219" />
-  <figcaption>Figure 8: DOM tree of the example markup</figcaption>
+  <figcaption>图片 8: 示例标记的 DOM 树</figcaption>
 </figure>
 
+与 HTML 一样，DOM 是由 W3C 组织指定的，参考[www.w3.org/DOM/DOMTR](http://www.w3.org/DOM/DOMTR)。
+DOM 是操作文档的通用规范。其特定模块描述了 HTML 的特定元素。HTML 定义可以在这里找到：
+[www.w3.org/TR/2003/REC-DOM-Level-2-HTML-20030109/idl-definitions.html](http://www.w3.org/TR/2003/REC-DOM-Level-2-HTML-20030109/idl-definitions.html)。
 
-Like HTML, DOM is specified by the W3C organization.
-See [www.w3.org/DOM/DOMTR](http://www.w3.org/DOM/DOMTR).
-It is a generic specification for manipulating documents. A specific module describes HTML specific elements. The HTML definitions can be found here:
-[www.w3.org/TR/2003/REC-DOM-Level-2-HTML-20030109/idl-definitions.html](http://www.w3.org/TR/2003/REC-DOM-Level-2-HTML-20030109/idl-definitions.html).
+当我说树包含 DOM 节点时，我想表达的是，树是由“实现 DOM 接口之一”的元素构成的。在浏览器使用的具体实现中，这个元素会包含浏览器内部所需的其他属性。
 
-When I say the tree contains DOM nodes, I mean the tree is constructed of elements that implement one of the DOM interfaces. Browsers use concrete implementations that have other attributes used by the browser internally.
+#### 解析算法
 
-#### The parsing algorithm
+正如我们在前几节中看到的，HTML 不能使用常规的自顶向下或自底向上解析器进行解析。
 
-As we saw in the previous sections, HTML cannot be parsed using the regular top down or bottom up parsers.
+原因如下:
 
-The reasons are:
+1. 该语言本质上非常宽容。
+2. 浏览器能容错的事实。为了支持早期的 HTML，浏览器具有对历史版本的容错能力。
+3. 解析的过程中，源可能发生修改。对于其他语言，源在解析过程中不会改变，但在 HTML 中，动态代码 (例如包含 `document.write()` 调用的脚本元素) 可以添加额外的标记，因此解析过程实际上会修改输入。
 
-1. The forgiving nature of the language.
-1. The fact that browsers have traditional error tolerance to support well known cases of invalid HTML.
-1. The parsing process is reentrant. For other languages, the source doesn't change during parsing, but in HTML, dynamic code (such as script elements containing `document.write()` calls) can add extra tokens, so the parsing process actually modifies the input.
+由于无法使用常规解析技术，浏览器会创建特定的解析器来解析 HTML。
 
-Unable to use the regular parsing techniques, browsers create custom parsers for parsing HTML.
+[解析算法在 HTML5 规范中有详细描述](http://www.whatwg.org/specs/web-apps/current-work/multipage/parsing.html)。
+该算法分为两个阶段：标记化 (tokenization) 和树构造 (tree construction)。
 
-The[parsing algorithm is described in detail by the HTML5 specification](http://www.whatwg.org/specs/web-apps/current-work/multipage/parsing.html).
-The algorithm consists of two stages: tokenization and tree construction.
+标记化是词法分析，将输入解析为标记。
+HTML 标记包括开始标记、结束标记、属性名和属性值。
 
-Tokenization is the lexical analysis, parsing the input into tokens.
-Among HTML tokens are start tags, end tags, attribute names and attribute values.
-
-The tokenizer recognizes the token, gives it to the tree constructor, and consumes the next character for recognizing the next token, and so on until the end of the input.
+标记器会识别标记，将其提供给树构造函数，并使用下一个字符来识别下一个标记，以此类推，直到输入结束。
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/YYYp1GgcD0riUliWJdiX.png" alt="HTML parsing flow (taken from HTML5 spec)" width="308" height="400" />
-  <figcaption>Figure 9: HTML parsing flow (taken from HTML5 spec)</figcaption>
+  <figcaption>图片 9：HTML 的解析流程 (以 HTML5 为例)</figcaption>
 </figure>
 
-### The tokenization algorithm
+### 标记化算法
 
-The algorithm's output is an HTML token.
-The algorithm is expressed as a state machine.
-Each state consumes one or more characters of the input stream and updates the next state according to those characters.
-The decision is influenced by the current tokenization state and by the tree construction state. This means the same consumed character will yield different results for the correct next state, depending on the current state.
-The algorithm is too complex to describe fully, so let's see a simple example that will help us understand the principle.
+算法的输出是一个HTML标记。
+该算法用一个状态机表示。
+每个状态消耗输入流的一个或多个字符，并根据这些字符更新下一个状态。
+该决策受到当前标记化状态和树构造状态的影响。
+这意味着，根据当前状态的不同，消耗相同的字符将为正确的下一状态产生不同的结果。
+很难完全描述这个复杂的算法，所以让我们看一个简单的例子来帮助我们理解原理。
 
-Basic example - tokenizing the following HTML:
+基本示例 —— 标记以下 HTML：
 
 ```html
 <html>
@@ -401,24 +370,23 @@ Basic example - tokenizing the following HTML:
   </body>
 </html>
 ```
+初始状态是“Data”。
+当遇到 `<` 字符时，状态被更改为 **“Tag Open”**。
+使用一个 `a-z` 字符会导致创建一个“开始标记标记”，状态被更改为 **“Tag Name”**。
+我们一直保持这种状态，直到 `>` 字符被消耗掉。每个字符都被追加到新的标记名。在我们的例子中，创建的标记是一个 `html` 标记。
 
-The initial state is the "Data state".
-When the `<` character is encountered, the state is changed to **"Tag open state"**.
-Consuming an `a-z` character causes creation of a "Start tag token", the state is changed to **"Tag name state"**.
-We stay in this state until the `>` character is consumed. Each character is appended to the new token name. In our case the created token is an `html` token.
+当到达 `>` 标记时，发出当前标记，状态变回 **“Data”**。
+标记 `<body>` 将按相同的步骤处理。
+到目前为止， `html` 和 `body` 标签都已发出。现在我们回到了 **“Data”**。
+消耗 `Hello world` 的 `H` 字符将导致创建和释放一个字符标记，直到到达 `</body>` 中的 `<` 为止。我们将为 `Hello world` 的每个字符发出一个字符标记。
 
-When the `>` tag is reached, the current token is emitted and the state changes back to the **"Data state"**.
-The `<body>` tag will be treated by the same steps.
-So far the `html` and `body` tags were emitted. We are now back at the **"Data state"**.
-Consuming the `H` character of `Hello world` will cause creation and emitting of a character token, this goes on until the `<` of `</body>` is reached. We will emit a character token for each character of `Hello world`.
-
-We are now back at the **"Tag open state"**.
-Consuming the next input `/` will cause creation of an `end tag token` and a move to the **"Tag name state"**. Again we stay in this state until we reach `>`.Then the new tag token will be emitted and we go back to the **"Data state"**.
-The `</html>` input will be treated like the previous case.
+我们现在回到了 **“Tag Open”**。
+使用下一个输入 `/` 将导致创建一个结束标记标记，并移动到 **“Tag Name”**。我们再次保持这个状态，直到到达 `>`。然后将发出新的标记标记，我们返回到 **“Data”**。
+输入 `</html>` 将像前一种情况一样处理。
 
 <figure align="center">
-  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/52SA8fqorIKP6h22JHUR.png" alt="Tokenizing the example input" width="627" height="387" />
-  <figcaption>Figure 10: Tokenizing the example input</figcaption>
+  <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/52SA8fqorIKP6h22JHUR.png" alt="标记示例输入" width="627" height="387" />
+  <figcaption>图片 10：标记示例输入</figcaption>
 </figure>
 
 #### Tree construction algorithm
@@ -456,7 +424,7 @@ Receiving the end of file token will end the parsing.
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/Q8vtwKMnnvYf48eeY95Y.gif" alt="Tree construction of example HTML." width="532" height="769" />
-  <figcaption>Figure 11: tree construction of example html</figcaption>
+  <figcaption>图片 11: tree construction of example html</figcaption>
 </figure>
 
 ### Actions when the parsing is finished
@@ -690,7 +658,7 @@ In both cases each CSS file is parsed into a StyleSheet object. Each object cont
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/vBMlouM57RHDG29Ukzhi.png" alt="Parsing CSS." width="500" height="393" />
-  <figcaption>Figure 12: parsing CSS</figcaption>
+  <figcaption>图片 12: parsing CSS</figcaption>
 </figure>
 
 ## The order of processing scripts and style sheets
@@ -800,7 +768,7 @@ A placeholder frame is where they should have been.
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/937hKTBHU2FAEyMRdi5z.png" alt="The render tree and the corresponding DOM tree." width="731" height="396" />
-  <figcaption>Figure 13: The render tree and the corresponding DOM tree. The "Viewport" is the initial containing block. In WebKit it will be the "RenderView" object</figcaption>
+  <figcaption>图片 13: The render tree and the corresponding DOM tree. The "Viewport" is the initial containing block. In WebKit it will be the "RenderView" object</figcaption>
 </figure>
 
 #### The flow of constructing the tree
@@ -872,7 +840,7 @@ WebKit also has style objects but they are not stored in a tree like the style c
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/qnms42muTKM1KVUarpVH.png" alt="Firefox style context tree." width="640" height="407" />
-  <figcaption>Figure 14: Firefox style context tree.</figcaption>
+  <figcaption>图片 14: Firefox style context tree.</figcaption>
 </figure>
 
 The style contexts contain end values. The values are computed by applying all the matching rules in the correct order and performing manipulations that transform them from logical to concrete values. For example, if the logical value is a percentage of the screen it will be calculated and transformed to absolute units.
@@ -887,7 +855,7 @@ Lets say we already computed this rule tree:
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/RwZNIJLCLZqbH2c9eXXg.png" alt="Computed rule tree" width="400" height="261" />
-  <figcaption>Figure 15: Computed rule tree.</figcaption>
+  <figcaption>图片 15: Computed rule tree.</figcaption>
 </figure>
 
 Suppose we need to match rules for another element in the content tree, and find out the matched rules (in the correct order) are B-E-I. We already have this path in the tree because we already computed path  A-B-E-I-L. We will now have less work to do.
@@ -954,14 +922,14 @@ The resulting rule tree will look like this (the nodes are marked with the node 
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/zJM11a5O0t2C91bXl8wS.png" alt="The rule tree" width="500" height="294" />
-  <figcaption>Figure 16: The rule tree</figcaption>
+  <figcaption>图片 16: The rule tree</figcaption>
 </figure>
 
 The context tree will look like this (node name: rule node they point to):
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/3QoZ4kD7dDBR6HYobs4w.png" alt="The context tree." width="400" height="305" />
-  <figcaption>Figure 17: The context tree</figcaption>
+  <figcaption>图片 17: The context tree</figcaption>
 </figure>
 
 Suppose we parse the HTML and get to the second `<div>` tag. We need to create a style context for this node and fill its style structs.
@@ -1165,7 +1133,7 @@ Incremental layout is triggered (asynchronously) when renderers are dirty. For e
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/pjIcQqbVvJPryLtHpefc.png" alt="Incremental layout." width="326" height="341" />
-  <figcaption>Figure 18: Incremental layout - only dirty renderers and their children are laid out (<a href="#3_6">3.6</a>)</figcaption>
+  <figcaption>图片 18: Incremental layout - only dirty renderers and their children are laid out (<a href="#3_6">3.6</a>)</figcaption>
 </figure>
 
 ### Asynchronous and Synchronous layout
@@ -1325,7 +1293,7 @@ Each box has a content area (e.g. text, an image, etc.) and optional surrounding
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/KbqHxGe3HMLM5BbXMcP8.jpg" alt="CSS2 box model" width="509" height="348" />
-  <figcaption>Figure 19: CSS2 box model</figcaption>
+  <figcaption>图片 19: CSS2 box model</figcaption>
 </figure>
 
 Each  node generates 0…n such boxes.
@@ -1374,14 +1342,14 @@ Block box: forms a block - has its own rectangle in the browser window.
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/fvhwoy1W1Se7IY4XyiXp.png" alt="Block box." width="150" height="127" />
-  <figcaption>Figure 20: Block box</figcaption>
+  <figcaption>图片 20: Block box</figcaption>
 </figure>
 
 Inline box: does not have its own block, but is inside a containing block.
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/srPz5klZnpr6j5edpV45.png" alt="Inline boxes." width="300" height="233" />
-  <figcaption>Figure 21: Inline boxes</figcaption>
+  <figcaption>图片 21: Inline boxes</figcaption>
 </figure>
 
 Blocks are formatted vertically one after the other.
@@ -1389,7 +1357,7 @@ Inlines are formatted horizontally.
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/8i6bZtuslRR3kJdsST6p.png" alt="Block and Inline formatting." width="350" height="324" />
-  <figcaption>Figure 22: Block and Inline formatting</figcaption>
+  <figcaption>图片 22: Block and Inline formatting</figcaption>
 </figure>
 
 Inline boxes are put inside lines or "line boxes".
@@ -1399,7 +1367,7 @@ This is usually what happens in a paragraph.
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/xChsrrYLPU7MfekdR7zS.png" alt="Lines." width="400" height="277" />
-  <figcaption>Figure 23: Lines</figcaption>
+  <figcaption>图片 23: Lines</figcaption>
 </figure>
 
 ### Positioning
@@ -1410,7 +1378,7 @@ Relative positioning - positioned like usual and then moved by the required delt
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/C1rUmDaOa8kGRx1PSdUu.png" alt="Relative positioning." width="500" height="261" />
-  <figcaption>Figure 24: Relative positioning</figcaption>
+  <figcaption>图片 24: Relative positioning</figcaption>
 </figure>
 
 #### Floats
@@ -1429,7 +1397,7 @@ Will look like:
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/ozqqfqboQ0IJJWlv5xXx.png" alt="Float." width="444" height="203" />
-  <figcaption>Figure 25: Float</figcaption>
+  <figcaption>图片 25: Float</figcaption>
 </figure>
 
 #### Absolute and fixed
@@ -1440,7 +1408,7 @@ In fixed, the container is the viewport.
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/0xwOrAiWm2kpuCecsRv1.png" alt="Fixed positioning." width="500" height="343" />
-  <figcaption>Figure 26: Fixed positioning</figcaption>
+  <figcaption>图片 26: Fixed positioning</figcaption>
 </figure>
 
 :::info
@@ -1484,7 +1452,7 @@ The result will be this:
 
 <figure align="center">
   <img src="https://web-dev.imgix.net/image/T4FyVKpzu4WKF1kBNvXepbi08t52/EXneyo5lwaJ6g09BuCo6.png" alt="Fixed positioning." width="254" height="227" />
-  <figcaption>Figure 27: Fixed positioning</figcaption>
+  <figcaption>图片 27: Fixed positioning</figcaption>
 </figure>
 
 Although the red div precedes the green one in the markup, and would have been painted before in the regular flow, the z-index property is higher, so it is more forward in the stack held by the root box.

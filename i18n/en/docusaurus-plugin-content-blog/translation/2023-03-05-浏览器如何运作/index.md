@@ -1,5 +1,5 @@
 ---
-slug: tr-001
+slug: how-browsers-work
 title: How browsers work
 authors:
   - name: Tali Garsiel
