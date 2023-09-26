@@ -36,7 +36,7 @@
     "description": "The label of footer link with label=GitHub linking to https://github.com"
   },
   "copyright": {
-    "message": "版权所有 © 2019 - 2023 DarXs 微分 · 使用 Docusaurus 构建 · 托管在 Netlify 上 · <a href=\"https://icp.gov.moe/?keyword=20232192\" target=\"_blank\">萌ICP备20232192号</a>",
+    "message": "版权所有 © 2019 - 2023 DarXs 微分 · 使用 Docusaurus 构建 · 托管在 Netlify 上</br><a href=\"https://icp.gov.moe/?keyword=20232192\" target=\"_blank\">萌ICP备20232192号</a> · <a href=\"http://beian.miit.gov.cn/\" target=\"_blank\">鄂ICP备2023017512号-1</a>",
     "description": "The footer copyright"
   },
   "link.title.Thanks": {
