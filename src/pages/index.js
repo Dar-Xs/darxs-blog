@@ -56,46 +56,46 @@ export default function Index() {
       </div>
 
       <div className={`container padding-bottom--lg ${styles.badges}`}>
-        <h2 className="margin-top--lg">技能</h2>
+        <h2 className="margin-top--lg">技能</h2>        
         <div>
-          <img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
-          <img alt="CSS3" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
-          <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=222222"/>
-          <img alt="Vue.js" src="https://img.shields.io/badge/Vue.js-42B883?style=for-the-badge&logo=vuedotjs&logoColor=white"/>
-          <img alt="Node.js" src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"/>
-          <img alt="Swift" src="https://img.shields.io/badge/Swift-F05137?style=for-the-badge&logo=swift&logoColor=white"/>
-          <img alt="LaTeX" src="https://img.shields.io/badge/LaTeX-008080?style=for-the-badge&logo=latex&logoColor=white"/>
+          <img alt="HTML5" src="/img/badge/HTML5.svg"/>
+          <img alt="CSS3" src="/img/badge/CSS3.svg"/>
+          <img alt="JavaScript" src="/img/badge/JAVASCRIPT.svg"/>
+          <img alt="Vue.js" src="/img/badge/VUE.svg"/>
+          <img alt="Node.js" src="/img/badge/NODE.svg"/>
+          <img alt="Swift" src="/img/badge/SWIFT.svg"/>
+          <img alt="LaTeX" src="/img/badge/LATEX.svg"/>
         </div>
         
         <h2 className="margin-top--lg">工具</h2>
         <div>
-          <img alt="VS Code" src="https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white"/>
-          <img alt="Vercel" src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"/>
-          <img alt="Git" src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white"/>
-          <img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
-          <img alt="Quasar" src="https://img.shields.io/badge/Quasar-1976D2?style=for-the-badge&logo=quasar&logoColor=white"/>
-          <img alt="TailwindCSS" src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
-          <img alt="Overleaf" src="https://img.shields.io/badge/Overleaf-47A141?style=for-the-badge&logo=overleaf&logoColor=white"/>
-          <img alt="Xcode" src="https://img.shields.io/badge/Xcode-147EFB?style=for-the-badge&logo=xcode&logoColor=white"/>
-          <img alt="Socket.io" src="https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socketdotio&logoColor=white"/>
-          <img alt="Axios" src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"/>
-          <img alt="Font Awesome" src="https://img.shields.io/badge/Font%20Awesome-528DD7?style=for-the-badge&logo=fontawesome&logoColor=white"/>
-          <img alt="Sketch" src="https://img.shields.io/badge/Sketch-F7B500?style=for-the-badge&logo=sketch&logoColor=222222"/>
-          <img alt="Postman" src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white"/>
-          <img alt="Sass" src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white"/>
+          <img alt="VS Code" src="/img/badge/VS CODE.svg"/>
+          <img alt="Vercel" src="/img/badge/VERCEL.svg"/>
+          <img alt="Git" src="/img/badge/GIT.svg"/>
+          <img alt="Docker" src="/img/badge/DOCKER.svg"/>
+          <img alt="Quasar" src="/img/badge/QUASAR.svg"/>
+          <img alt="TailwindCSS" src="/img/badge/TAILWIND CSS.svg"/>
+          <img alt="Overleaf" src="/img/badge/OVERLEAF.svg"/>
+          <img alt="Xcode" src="/img/badge/XCODE.svg"/>
+          <img alt="Socket.io" src="/img/badge/SOCKET.IO.svg"/>
+          <img alt="Axios" src="/img/badge/AXIOS.svg"/>
+          <img alt="Font Awesome" src="/img/badge/FONT AWESOME.svg"/>
+          <img alt="Sketch" src="/img/badge/SKETCH.svg"/>
+          <img alt="Postman" src="/img/badge/POSTMAN.svg"/>
+          <img alt="Sass" src="/img/badge/SASS.svg"/>
         </div>
 
         <h2 className="margin-top--lg">学习</h2>
         <div>
-          <img alt="PostCSS" src="https://img.shields.io/badge/PostCSS-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white"/>
-          <img alt="UnoCSS" src="https://img.shields.io/badge/UnoCSS-333333?style=for-the-badge&logo=unocss&logoColor=white"/>
-          <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+          <img alt="PostCSS" src="/img/badge/POSTCSS.svg"/>
+          <img alt="UnoCSS" src="/img/badge/UNOCSS.svg"/>
+          <img alt="Python" src="/img/badge/PYTHON.svg"/>
         </div>
 
         <h2 className="margin-top--lg">贡献</h2>
         <div>
-          <img alt="MDN Web Docs" src="https://img.shields.io/badge/MDN%20Web%20Docs-000000?style=for-the-badge&logo=mdnwebdocs&logoColor=white"/>
-          <img alt="GitHub" src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
+          <img alt="MDN Web Docs" src="/img/badge/MDN WEB DOCS.svg"/>
+          <img alt="GitHub" src="/img/badge/GITHUB.svg"/>
         </div>
 
       </div>
