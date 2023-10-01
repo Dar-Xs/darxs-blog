@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://darxs.com.cn',
+  url: 'https://darxs.cn',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -59,7 +59,7 @@ const config = {
       }),
     ],
   ],
-  plugins: ['@docusaurus/theme-live-codeblock','docusaurus-plugin-sass'],
+  plugins: ['docusaurus-plugin-sass'],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -69,7 +69,8 @@ const config = {
         title: 'DarXs',
         logo: {
           alt: 'DarXs Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo_black.svg',
+          srcDark: 'img/logo_white.svg',
         },
         items: [
           {
