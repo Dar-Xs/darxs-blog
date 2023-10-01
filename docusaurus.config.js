@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'DarXs',
   tagline: 'Dare to face the Xs.',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/site/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://darxs.cn',
@@ -69,8 +69,8 @@ const config = {
         title: 'DarXs',
         logo: {
           alt: 'DarXs Logo',
-          src: 'img/logo_black.svg',
-          srcDark: 'img/logo_white.svg',
+          src: 'img/site/logo_black.svg',
+          srcDark: 'img/site/logo_white.svg',
         },
         items: [
           {
