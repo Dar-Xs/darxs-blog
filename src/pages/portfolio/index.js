@@ -38,7 +38,7 @@ export default function Portfolio() {
               </div>
             </div>
             <img
-              src="/img/お兄ちゃんはおしまい34.png"
+              src="/img/お兄ちゃんはおしまい34.webp"
               alt="舒适地靠在一边"
               title="随便看看吧 ♫~"
             />
@@ -54,7 +54,7 @@ export default function Portfolio() {
                 <div className="card__image">
                   <Link to="https://math.dar-xs.com">
                     <img
-                      src="/img/math-latex-preview.png"
+                      src="/img/math-latex-preview.webp"
                       alt="math-latex网页截图"
                       title="Math Latex预览"
                     />
@@ -92,7 +92,7 @@ export default function Portfolio() {
               <div className="card">
                 <div className="card__image">
                   <img
-                    src="/img/football-1922-preview.png"
+                    src="/img/football-1922-preview.webp"
                     alt="进行中小游戏的截图"
                     title="Football 1922 预览"
                   />
@@ -122,7 +122,7 @@ export default function Portfolio() {
                 <div className="card__image">
                   <Link to="https://rsa.chat.darxs.cn">
                     <img
-                      src="/img/rsa-chat-web-ui-preview.png"
+                      src="/img/rsa-chat-web-ui-preview.webp"
                       alt="RSA Chat 网页截图"
                       title="RSA Web Chat 预览"
                     />
@@ -160,7 +160,7 @@ export default function Portfolio() {
               <div className="card">
                 <div className="card__image">
                   <img
-                    src="/img/cyber-casino-preview.png"
+                    src="/img/cyber-casino-preview.webp"
                     alt="德州扑克网页截图"
                     title="德州扑克 Web 端预览"
                   />

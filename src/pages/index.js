@@ -47,7 +47,7 @@ export default function Index() {
               </div>
             </div>
             <img
-              src="/img/お兄ちゃんはおしまい25.png"
+              src="/img/お兄ちゃんはおしまい25.webp"
               alt="热情地向你挥手"
               title="Hello👋"
             />
