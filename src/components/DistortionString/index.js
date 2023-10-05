@@ -112,17 +112,16 @@ export default function DistortionString({
 
   return (
     <div
-      style={{ display: "inline-block", position: "relative", height: "30px" }}
+      style={{
+        fontFamily:
+          'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+        display: "inline-block",
+        position: "relative",
+        height: "30px",
+      }}
     >
-      <div
-        style={{
-          fontFamily:
-            'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-        }}
-      >
-        {content}
-        {inputPromptVisible ? "|" : "\u00A0"}
-      </div>
+      {content}
+      {inputPromptVisible ? "|" : "\u00A0"}
     </div>
   );
 }
