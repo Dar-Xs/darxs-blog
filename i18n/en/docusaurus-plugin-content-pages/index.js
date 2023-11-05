@@ -28,7 +28,7 @@ export default function Index() {
                     contents={[
                       "Web Frontend Engineer",
                       "iOS Developer",
-                      "UI/UX Designer",
+                      { string: "UI/UX Designer", isAn: false },
                       "Open Source Developer",
                       "Craft Lovers",
                     ]}
@@ -104,7 +104,6 @@ export default function Index() {
           <img alt="MDN Web Docs" src="/img/badge/MDN WEB DOCS.svg" />
           <img alt="GitHub" src="/img/badge/GITHUB.svg" />
         </div>
-        
       </div>
     </Layout>
   );
