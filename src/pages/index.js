@@ -65,6 +65,7 @@ export default function Index() {
           <img alt="JavaScript" src="/img/badge/JAVASCRIPT.svg" />
           <img alt="Vue.js" src="/img/badge/VUE.svg" />
           <img alt="Node.js" src="/img/badge/NODE.svg" />
+          <img alt="Java" src="/img/badge/JAVA.svg" />
           <img alt="Swift" src="/img/badge/SWIFT.svg" />
           <img alt="LaTeX" src="/img/badge/LATEX.svg" />
         </div>
