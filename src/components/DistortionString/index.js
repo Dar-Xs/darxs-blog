@@ -54,10 +54,11 @@ function randStringNear(string, radius) {
 
 export default function DistortionString({
   contents = [
-    "Fontend Developer",
+    "Frontend Developer",
     "前端工程师",
     "Web Developer",
     "iOS Developer",
+    { string: "UI/UX 设计师", isAn: false },
   ],
   setIsAn = (isAn) => {},
   charTime = 100,
@@ -65,24 +66,31 @@ export default function DistortionString({
   holdTime = 3000,
 }) {
   const [content, setContent] = useState(contents[0] || "");
-  const [inputPromptVisible, setinputPromptVisible] = useState(true);
+  const [inputPromptVisible, setInputPromptVisible] = useState(true);
   let inputPromptVisibleTemp = true;
   let contentsIndex = 0;
 
   useEffect(() => {
-    let n = contents[contentsIndex].length;
-    const callback = (r) => {
-      let someStr = contents[contentsIndex].substring(
-        0,
-        Math.floor((1 - r) * contents[contentsIndex].length)
-      );
-      let randStr = randStringNear(someStr, Math.pow(r, 1.5));
-      setContent(randStr);
+    let title = contents[contentsIndex];
+    let isAn = false;
+    if (typeof title == "string") {
+      isAn = "AEIOUaeiou".includes(contents[contentsIndex][0]);
+    } else {
+      isAn = title.isAn;
+      title = title.string;
+    }
+    let len = title.length;
+
+    const callback = (r, notRand) => {
+      let someStr = title.substring(0, Math.floor((1 - r) * title.length));
+      if (!notRand) {
+        someStr = randStringNear(someStr, Math.pow(r, 1.5));
+      }
+      setContent(someStr);
     };
-    let i = n;
+    let i = len;
     const loop = () => {
-      setIsAn("AEIOUaeiou".includes(contents[contentsIndex][0]));
-      callback(i / n);
+      callback(i / len);
       i--;
       if (i >= 0) {
         setTimeout(loop, charTime);
@@ -92,21 +100,30 @@ export default function DistortionString({
       }
     };
     const loopRevers = () => {
-      callback(i / n);
+      callback(i / len, true);
       i++;
-      if (i < n) {
+      if (i < len) {
         setTimeout(loopRevers, rmCharTime);
       } else {
         contentsIndex = (contentsIndex + 1) % contents.length;
-        n = contents[contentsIndex].length;
-        i = n;
+        title = contents[contentsIndex];
+        isAn = false;
+        if (typeof title == "string") {
+          isAn = "AEIOUaeiou".includes(contents[contentsIndex][0]);
+        } else {
+          isAn = title.isAn;
+          title = title.string;
+        }
+        len = title.length;
+        setIsAn(isAn);
+        i = len;
         loop();
       }
     };
     loop();
     setInterval(() => {
       inputPromptVisibleTemp = !inputPromptVisibleTemp;
-      setinputPromptVisible(inputPromptVisibleTemp);
+      setInputPromptVisible(inputPromptVisibleTemp);
     }, 800);
   }, []);
 
