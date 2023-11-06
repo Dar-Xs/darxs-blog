@@ -20,7 +20,7 @@ export default function Index() {
                 <strong>熊</strong>若晗
               </h1>
               <div className={styles.roleContent}>
-                我是
+                一位
                 <span className={clsx("margin-left--sm", styles.role)}>
                   <DistortionString
                     contents={[
