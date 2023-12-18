@@ -17,7 +17,7 @@ sidebar_position: 1
 | hostname | 容器主机名 |
 | ports | 暴露容器端口，与 `-p` 相同，但端口不能低于 60 |
 | volumes | 挂载一个宿主机目录或命令卷到容器中 |
-| restart | 重启策略：`never`，`always`，`no-failure:${重试次数}`，`unless-stopped` |
+| restart | 重启策略：`no`，`always`，`on-failure:${重试次数}`，`unless-stopped` |
 | depends_on | 在依赖的服务之后启动 |
 
 
