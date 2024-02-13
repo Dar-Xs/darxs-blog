@@ -1,0 +1,63 @@
+.hstack {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.vstack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.view-height {
+  height: calc(100vh - var(--ifm-navbar-height));
+}
+
+.full-width {
+  width: 100%;
+}
+
+.book-container {
+  perspective: 800px;
+}
+.book {
+  width: 200px;
+  height: 286px;
+  transition: all ease 0.3s;
+  transform-style: preserve-3d;
+}
+.book-edge {
+  position: absolute;
+  width: 39px;
+  margin: 4px 80px 4px 81px;
+  height: 278px;
+  background-color: white;
+  transform: rotateY(55deg) translateZ(96px);
+  box-shadow: rgba(0, 0, 0, 0.5) 7px 0px 14px -5px inset;
+}
+.book-back {
+  position: absolute;
+  width: 200px;
+  height: 286px;
+  background-color: dimgray;
+  transform: rotateY(-35deg) translateZ(-20px);
+  box-shadow: rgba(123, 123, 123, 0.5) 0px 0px 18px 2px;
+}
+img.book-face {
+  display: block;
+  position: absolute;
+  width: 200px;
+  transform: rotateY(-35deg) translateZ(20px);
+}
+
+.description {
+  margin-top: 1.5em;
+  text-align: center;
+}
