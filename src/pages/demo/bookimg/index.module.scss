@@ -26,11 +26,11 @@
 
 .book-container {
   perspective: 800px;
+  margin: 2.4em 0;
 }
 .book {
   width: 200px;
   height: 286px;
-  transition: all ease 0.3s;
   transform-style: preserve-3d;
 }
 .book-edge {
@@ -54,10 +54,11 @@ img.book-face {
   display: block;
   position: absolute;
   width: 200px;
+  height: 286px;
   transform: rotateY(-35deg) translateZ(20px);
+  background-color: white;
 }
 
 .description {
-  margin-top: 1.5em;
   text-align: center;
 }
