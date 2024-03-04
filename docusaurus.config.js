@@ -153,6 +153,23 @@ const config = {
               },
             ],
           },
+          {
+            title: "Friends",
+            items: [
+              {
+                label: "Shamming",
+                href: "https://dar-xs.com/",
+              },
+              {
+                label: "Yimo DENG",
+                href: "https://dengemo.com",
+              },
+              {
+                label: "Eric Huang",
+                href: "https://www.erichuang.art/",
+              },
+            ],
+          },
         ],
         copyright: `Copyright © 2019 - ${new Date().getFullYear()} DarXs · Built with Docusaurus · Powered by Netlify</br><a href=\"https://icp.gov.moe/?keyword=20232192\" target=\"_blank\">萌ICP备20232192号</a> · <a href=\"http://beian.miit.gov.cn/\" target=\"_blank\">鄂ICP备2023017512号-1</a>`,
       },
