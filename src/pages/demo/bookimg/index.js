@@ -65,7 +65,7 @@ export default function BookImg() {
               className={styles.book}
               onMouseMove={moveTo}
               onMouseEnter={() => {
-                focusState.current = 1;
+                focusState.current = 2;
                 setTimeout(() => {
                   if (focusState.current === 1) {
                     focus();
