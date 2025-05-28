@@ -15,8 +15,8 @@
     "dev": "docusaurus start"
   },
   "dependencies": {
-    "@docusaurus/core": "3.0.0",
-    "@docusaurus/preset-classic": "3.0.0",
+    "@docusaurus/core": "3.8.0",
+    "@docusaurus/preset-classic": "3.8.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
@@ -30,8 +30,8 @@
     "sass": "^1.62.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.0.0",
-    "@docusaurus/types": "^3.0.0",
+    "@docusaurus/module-type-aliases": "3.8.0",
+    "@docusaurus/types": "^3.8.0",
     "@types/react": "^18.2.34",
     "node-sass": "^8.0.0",
     "sass-loader": "^13.3.2"
@@ -51,5 +51,6 @@
   "engines": {
     "node": ">=16.14"
   },
-  "description": "Personal website"
+  "description": "Personal website",
+  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c"
 }
