@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+
+// 四分类：/lab 页内分「工具」「玩具」两组
+// 工具 = 纯开源静态站点，可带轻量广告；玩具 = 非盈利娱乐项目
+// TODO:Math Latex、RSA 归入工具 / Play-Piano 归入玩具是初步判断，待站长确认
+const groups = [
+  {
+    heading: '工具',
+    blurb: '顺手的小工具，纯开源，拿去用。',
+    items: [
+      {
+        // 2026-07-11 从 /cases 移入：给母亲做的工具，静态部署，非盈利
+        name: 'Word 填空助手',
+        desc: '给我妈做的填表工具——反复要填的 Word 文档，传上模板，填好空，拿走成品。',
+        img: null,
+        links: [{ label: '去用', href: 'https://word.darxs.com' }],
+      },
+      {
+        // 服务待重新部署，上线后补「去用」直链
+        name: 'Math Latex',
+        desc: '刷数学题刷出来的副产品——把题目从截图变成 LaTeX 公式，顺手做成了刷题平台。',
+        img: '/img/lab/math-latex-preview.webp',
+        links: [{ label: '源码', href: 'https://github.com/Dar-Xs/math-latex-client' }],
+      },
+      {
+        // TODO：rsa.chat.darxs.cn 解析已失效，重新部署后恢复
+        name: 'RSA Web Chat',
+        desc: '想安全地传点隐私数据，索性手搓了一个端到端加密聊天室。',
+        img: '/img/lab/rsa-chat-web-ui-preview.webp',
+        links: [
+          { label: '去用', href: 'https://rsa.chat.darxs.cn' },
+          { label: '源码', href: 'https://github.com/Dar-Xs/RSA-Web-Chat' },
+        ],
+      },
+    ],
+  },
+  {
+    heading: '玩具',
+    blurb: '闲不住的时候造的，随便玩。',
+    items: [
+      {
+        // TODO：描述待站长补充（这是什么、好玩在哪），链接待提供
+        name: 'Play-Piano',
+        desc: '和钢琴有关的玩具，整理中。',
+        img: null,
+        links: [],
+      },
+      {
+        name: '德州扑克',
+        desc: '和朋友打德扑总差个荷官，那就写一个——洗牌发牌结算全自动，代价是摸不到手边的筹码了 :(',
+        img: '/img/lab/cyber-casino-preview.webp',
+        links: [{ label: '开发博文', href: '/blog/texas-game-web-full-stack-development' }],
+      },
+      {
+        name: 'Football 1922',
+        desc: '局域网多人在线足球游戏，没用游戏引擎，2D 物理是手搓的。',
+        img: '/img/lab/football-1922-preview.webp',
+        links: [{ label: '开发博文', href: '/blog/start-from-scratch-multi-player-soccer-game' }],
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title="实验室" description="顺手的工具和闲不住造的玩具">
+  <div class="py-10">
+    <h1 class="text-3xl font-bold">实验室</h1>
+    <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300">
+      这些小造物都在线跑着——工具拿去用，玩具随便玩，别客气。
+    </p>
+  </div>
+
+  {
+    groups.map((group) => (
+      <section class="pb-12">
+        <h2 class="text-xl font-bold">{group.heading}</h2>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{group.blurb}</p>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2">
+          {group.items.map((item) => (
+            <article class="overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800">
+              {item.img ? (
+                <img src={item.img} alt={`${item.name} 截图`} class="aspect-video w-full object-cover" loading="lazy" />
+              ) : (
+                <div class="flex aspect-video w-full items-center justify-center bg-neutral-100 text-xs text-neutral-400 dark:bg-neutral-900">
+                  截图整理中
+                </div>
+              )}
+              <div class="p-5">
+                <h3 class="font-semibold">{item.name}</h3>
+                <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{item.desc}</p>
+                {item.links.length > 0 && (
+                  <div class="mt-4 flex gap-4 text-sm">
+                    {item.links.map((l) =>
+                      l.href.startsWith('http') ? (
+                        <ExternalLink
+                          href={l.href}
+                          class="font-medium underline underline-offset-4 hover:text-neutral-600 dark:hover:text-neutral-300"
+                        >
+                          {l.label}
+                        </ExternalLink>
+                      ) : (
+                        <a
+                          href={l.href}
+                          class="font-medium underline underline-offset-4 hover:text-neutral-600 dark:hover:text-neutral-300"
+                        >
+                          {l.label}
+                        </a>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+</BaseLayout>

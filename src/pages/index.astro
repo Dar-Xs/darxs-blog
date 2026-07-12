@@ -1,0 +1,140 @@
+---
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OwnerState from '../components/OwnerState.astro';
+
+// 最新博客三篇（草稿不进橱窗）
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+const dateFmt = new Intl.DateTimeFormat('zh-CN', { dateStyle: 'long', timeZone: 'UTC' });
+
+// lab 精选：两件工具一件玩具，完整版在 /lab
+const labPicks = [
+  {
+    name: 'Word 填空助手',
+    desc: '给我妈做的填表工具，传上模板填好空，拿走成品',
+    href: 'https://word.darxs.com',
+  },
+  {
+    // 服务待重新部署，上线后换成新子域直链
+    name: 'Math Latex',
+    desc: '用 LaTeX 展示数学公式的刷题平台',
+    href: '/lab',
+  },
+  {
+    name: '德州扑克',
+    desc: '多人在线 Web 游戏，洗牌发牌结算全自动',
+    href: '/lab',
+  },
+];
+---
+
+<BaseLayout>
+  {/* 命名体系：首页本名+花名同框，站内叙述用花名 */}
+  <section class="py-16 sm:py-20">
+    <div class="flex flex-col items-center gap-8 sm:flex-row sm:justify-between">
+      <div class="max-w-xl text-center sm:text-left">
+        <h1 class="text-3xl font-bold leading-snug sm:text-4xl">把重复的事变成系统。</h1>
+        <p class="mt-5 text-neutral-600 dark:text-neutral-300">
+          我是残星，本名熊若晗——写代码的手艺人。这间工作室里有正在运转的机器、顺手的小工具、闲不住造的玩具，和一路记下的笔记。
+        </p>
+      </div>
+      {/* Hero 图形：三角 X logo，暗色模式的反色写在 SVG 内部（prefers-color-scheme） */}
+      <img src="/logo.svg" alt="" class="h-40 w-40 shrink-0 select-none" aria-hidden="true" />
+    </div>
+  </section>
+
+  {/* 案例精选 → /cases */}
+  <section class="border-t border-neutral-200 py-12 dark:border-neutral-800">
+    <div class="flex items-baseline justify-between">
+      <h2 class="text-xl font-bold">正在运转的机器</h2>
+      <a href="/cases" class="text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+        全部案例 →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <a
+        href="/cases"
+        class="rounded-lg border border-neutral-200 p-5 transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+      >
+        <h3 class="font-semibold">给投资人的资讯跟踪系统</h3>
+        <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
+          自动抓取、汇总、留档。客户每天在用，已经四个月。
+        </p>
+      </a>
+      <a
+        href="/cases"
+        class="rounded-lg border border-neutral-200 p-5 transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+      >
+        <h3 class="font-semibold">一家工厂的值守系统</h3>
+        <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
+          重复的线上操作，系统替人值守，已连续运行 14 个月。
+        </p>
+      </a>
+    </div>
+  </section>
+
+  {/* lab 精选 → /lab */}
+  <section class="border-t border-neutral-200 py-12 dark:border-neutral-800">
+    <div class="flex items-baseline justify-between">
+      <h2 class="text-xl font-bold">架上陈列的造物</h2>
+      <a href="/lab" class="text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+        进实验室 →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 sm:grid-cols-3">
+      {
+        labPicks.map((toy) => (
+          <a
+            href={toy.href}
+            target={toy.href.startsWith('http') ? '_blank' : undefined}
+            rel={toy.href.startsWith('http') ? 'noopener' : undefined}
+            class="rounded-lg border border-neutral-200 p-5 transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+          >
+            <h3 class="font-semibold">
+              {toy.name}
+              {toy.href.startsWith('http') && (
+                <Icon
+                  name="tabler:external-link"
+                  class="ml-1 inline-block h-[0.85em] w-[0.85em] align-[-0.05em] text-neutral-400"
+                  aria-hidden="true"
+                />
+              )}
+            </h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{toy.desc}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* 最新博客 → /blog */}
+  <section class="border-t border-neutral-200 py-12 dark:border-neutral-800">
+    <div class="flex items-baseline justify-between">
+      <h2 class="text-xl font-bold">工作台上的笔记</h2>
+      <a href="/blog" class="text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+        全部文章 →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 sm:grid-cols-3">
+      {
+        posts.map((post) => (
+          <a
+            href={`/blog/${post.id}`}
+            class="rounded-lg border border-neutral-200 p-5 transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+          >
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">{dateFmt.format(post.data.date)}</p>
+            <h3 class="mt-1 font-semibold">{post.data.title}</h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{post.data.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* 第四拍：轮换的残星状态，通向 about */}
+  <OwnerState lang="zh" />
+</BaseLayout>

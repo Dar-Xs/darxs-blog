@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const mainCaseStats = [
+  { value: '4 months', label: 'of daily use by the client' },
+  { value: '4,800+', label: 'news items collected' },
+  { value: '7.9 GB', label: 'of archived screenshots' },
+];
+---
+
+<BaseLayout title="Cases" description="Custom systems with real clients, real usage, real payment">
+  <div class="mx-auto max-w-3xl">
+    <section class="py-10">
+      <h1 class="text-3xl font-bold">Cases</h1>
+      <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300">
+        I turn repetitive work into systems. Here are a few that are running right now.
+      </p>
+    </section>
+
+    {/* Main case */}
+    <section class="border-t border-neutral-200 py-10 dark:border-neutral-800">
+      <h2 class="text-2xl font-bold">A news-tracking system for an investor</h2>
+
+      {/* Wording pending owner review; numbers are verified facts, do not alter */}
+      <div class="mt-6 space-y-4 text-neutral-700 dark:text-neutral-300">
+        <p>
+          <strong class="text-neutral-900 dark:text-neutral-100">The problem:</strong>
+          an investor had to keep an eye on many sources every day. Reading them by hand took
+          hours, and important items slipped through.
+        </p>
+        <p>
+          <strong class="text-neutral-900 dark:text-neutral-100">What I built:</strong>
+          a system that collects and organizes the news automatically, files everything away, and
+          lets him look anything up later.
+        </p>
+      </div>
+
+      <dl class="mt-8 grid grid-cols-3 gap-4">
+        {
+          mainCaseStats.map((s) => (
+            <div class="rounded-lg border border-neutral-200 p-4 text-center dark:border-neutral-800">
+              <dd class="text-xl font-bold">{s.value}</dd>
+              <dt class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{s.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+
+      {/* TODO: add main-case screenshot (mock data or redacted) */}
+      <div
+        class="mt-6 flex h-48 items-center justify-center rounded-lg border border-dashed border-neutral-300 text-sm text-neutral-400 dark:border-neutral-700"
+      >
+        Screenshot coming soon
+      </div>
+    </section>
+
+    {/* Secondary case (anonymous, pending): placeholder below, safe to delete.
+        Keep it anonymous; no images */}
+    <section class="border-t border-neutral-200 py-10 dark:border-neutral-800">
+      <h2 class="text-2xl font-bold">A monitoring system for a factory</h2>
+      <p class="mt-6 text-neutral-700 dark:text-neutral-300">
+        A factory had a batch of repetitive online tasks that used to need a person watching over
+        them. A system now stands that watch. It has run continuously for 14 months, and the
+        client keeps renewing the maintenance.
+      </p>
+    </section>
+
+    {/* Contact: the next step */}
+    <section class="border-t border-neutral-200 py-10 dark:border-neutral-800">
+      <h2 class="text-xl font-bold">Have something repetitive you want turned into a system?</h2>
+      {/* TODO: public contact channel to confirm (email placeholder for now) */}
+      <p class="mt-4 text-neutral-700 dark:text-neutral-300">
+        Talk to me: <a href="mailto:admin@darxs.com" class="font-medium underline underline-offset-4">admin@darxs.com</a>
+      </p>
+      <p class="mt-3 text-sm text-neutral-500 dark:text-neutral-400">
+        Want to see things I've built first? <a href="/en/lab" class="underline underline-offset-4">A few are running live in the Lab</a>.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

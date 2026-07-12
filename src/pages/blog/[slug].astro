@@ -1,0 +1,53 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// URL 红线：/blog/<id> 必须与旧 Docusaurus 站一致
+export async function getStaticPaths() {
+  const [posts, enPosts] = await Promise.all([getCollection('blog'), getCollection('blogEn')]);
+  const enIds = new Set(enPosts.map((p) => p.id));
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, hasEn: enIds.has(post.id) } }));
+}
+
+const { post, hasEn } = Astro.props;
+const { Content } = await render(post);
+const fmt = new Intl.DateTimeFormat('zh-CN', { dateStyle: 'long', timeZone: 'UTC' });
+---
+
+{/* 有 index.en.md 的文章走正常双语机制（hreflang 成对、语言提示、切到 /en/blog/<slug>）；
+    没有的 translated=false 关掉语言提示与对侧 hreflang，切换按钮退到英文博客列表 */}
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  translated={hasEn}
+  counterpart={hasEn ? undefined : '/en/blog'}
+  noindex={post.data.draft}
+>
+  <article class="mx-auto max-w-[65ch] py-10">
+    <header>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+        <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt.format(post.data.date)}</time>
+      </p>
+      <h1 class="mt-2 text-3xl font-bold leading-snug">{post.data.title}</h1>
+      {
+        post.data.tags.length > 0 && (
+          <p class="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">
+            {post.data.tags.map((tag) => (
+              <span># {tag}</span>
+            ))}
+          </p>
+        )
+      }
+    </header>
+
+    <div class="prose prose-neutral mt-10 dark:prose-invert">
+      <Content />
+    </div>
+
+    <footer class="mt-12 border-t border-neutral-200 pt-6 text-sm dark:border-neutral-800">
+      <a href="/blog" class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+        ← 全部文章
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

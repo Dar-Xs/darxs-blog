@@ -1,0 +1,91 @@
+---
+/**
+ * 语言提示 banner，位于导航栏上方，入流不覆盖内容（由 Header 在双语页渲染）。
+ * - 无 localStorage 记录时：浏览器主语言与当前页不符则显示
+ * - 点过任何语言切换（Header 按钮或本 banner）：写入 lang-pref，以后以它为准，不再提示；
+ *   落到与偏好不符的页面时直接跳转到对应语言版本
+ * - 点「留在 X」：视为选择当前页语言，同样持久化
+ */
+interface Props {
+  lang: 'zh' | 'en';
+  counterpart: string;
+}
+
+const { lang, counterpart } = Astro.props;
+
+// 按钮语言原则：每个动作用"它的结果对应的语言"书写，
+// 保证无论浏览器语言推断对错，用户都能看懂对他正确的那个动作；
+// 正文用推断的目标语言（它说给被推断出的那类访客听）
+const copy =
+  lang === 'zh'
+    ? { text: 'This page is also available in English.', cta: 'Read in English →', target: 'en', dismiss: '留在中文' }
+    : { text: '本页也有中文版。', cta: '切换到中文 →', target: 'zh', dismiss: 'Stay in English' };
+---
+
+<div
+  id="lang-prompt"
+  hidden
+  role="status"
+  data-page-lang={lang}
+  data-counterpart={counterpart}
+  data-explicit-lang={String(lang !== 'zh')}
+  class="border-b border-neutral-200 bg-neutral-50 text-sm dark:border-neutral-800 dark:bg-neutral-900"
+>
+  <div class="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-2">
+    <span class="text-neutral-600 dark:text-neutral-300">{copy.text}</span>
+    <span class="flex shrink-0 items-center gap-4">
+      <a
+        href={counterpart}
+        data-lang-switch={copy.target}
+        class="font-medium underline underline-offset-4 hover:text-neutral-600 dark:hover:text-neutral-300"
+      >
+        {copy.cta}
+      </a>
+      <button
+        type="button"
+        data-lang-dismiss
+        class="text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100"
+      >
+        {copy.dismiss}
+      </button>
+    </span>
+  </div>
+</div>
+
+<script>
+  const KEY = 'lang-pref';
+
+  function initLangPrompt() {
+    const el = document.getElementById('lang-prompt');
+    if (!el) return;
+    const pageLang = el.dataset.pageLang || '';
+    const counterpart = el.dataset.counterpart || '';
+    // 带 /en/ 前缀的 URL 是明确的语言主张（默认语言中文无前缀，信号弱）
+    const explicitLang = el.dataset.explicitLang === 'true';
+
+    const show = () => {
+      el.hidden = false;
+      el.querySelector('[data-lang-dismiss]')?.addEventListener('click', () => {
+        localStorage.setItem(KEY, pageLang);
+        el.hidden = true;
+      });
+    };
+
+    const pref = localStorage.getItem(KEY);
+    if (pref) {
+      if (pref === pageLang) return;
+      // 偏好与页面冲突：显式语言链接（如别人发来的英文深链）
+      // 不静默跳转，弹 banner 让用户裁决；无前缀的默认地址才自动跳到偏好版本
+      if (explicitLang) show();
+      else if (counterpart) location.replace(counterpart);
+      return;
+    }
+
+    const primary = (navigator.language || '').toLowerCase();
+    const mismatch = pageLang === 'zh' ? !primary.startsWith('zh') : primary.startsWith('zh');
+    if (mismatch) show();
+  }
+
+  // astro:page-load 在首次加载与每次 View Transitions 换页后都会触发
+  document.addEventListener('astro:page-load', initLangPrompt);
+</script>

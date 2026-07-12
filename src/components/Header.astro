@@ -1,0 +1,79 @@
+---
+import { Icon } from 'astro-icon/components';
+import LangPrompt from './LangPrompt.astro';
+import { getLangFromPath, getCounterpart, useTranslations } from '../i18n';
+
+interface Props {
+  /** 见 BaseLayout：未翻译页不弹语言提示，切换按钮退到对侧最近的存在页面 */
+  translated?: boolean;
+  counterpart?: string;
+}
+
+const pathname = Astro.url.pathname;
+const lang = getLangFromPath(pathname);
+const t = useTranslations(lang);
+const prefix = lang === 'en' ? '/en' : '';
+
+const nav = [
+  { href: `${prefix}/cases`, label: t('nav.cases') },
+  { href: `${prefix}/blog`, label: t('nav.blog') },
+  { href: `${prefix}/lab`, label: t('nav.lab') },
+  { href: `${prefix}/about`, label: t('nav.about') },
+];
+
+const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
+
+// 全站双语：切换按钮与提示 banner 在所有页面可用；logo 指向当前语言的首页
+const { translated = true, counterpart = getCounterpart(pathname) } = Astro.props;
+const home = lang === 'en' ? '/en/' : '/';
+const langToggle =
+  lang === 'en' ? { href: counterpart, label: '中文', target: 'zh' } : { href: counterpart, label: 'English', target: 'en' };
+---
+
+{translated && <LangPrompt lang={lang} counterpart={counterpart} />}
+
+{/* 吸顶导航:毛玻璃半透明,零 JS;锚点偏移在 global.css 的 [id] scroll-margin */}
+<header class="sticky top-0 z-40 border-b border-neutral-200 bg-white/85 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/85">
+  <div class="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4">
+    <a href={home} class="flex items-center gap-2 font-semibold">
+      <img src="/img/site/logo_black.svg" alt="" class="h-7 w-7 dark:hidden" />
+      <img src="/img/site/logo_white.svg" alt="" class="hidden h-7 w-7 dark:block" />
+      <span>{t('site.name')}</span>
+    </a>
+    <nav class="flex items-center gap-1 text-sm">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'rounded-md px-3 py-2 transition-colors',
+              isActive(item.href)
+                ? 'font-medium text-neutral-900 dark:text-neutral-100'
+                : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href={langToggle.href}
+        data-lang-switch={langToggle.target}
+        class="ml-2 flex items-center gap-1.5 rounded-md border border-neutral-200 px-2.5 py-1.5 text-xs text-neutral-600 transition-colors hover:text-neutral-900 dark:border-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100"
+      >
+        <Icon name="tabler:world" class="h-3.5 w-3.5" aria-hidden="true" />
+        {langToggle.label}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // 任何带 data-lang-switch 的链接被点击时，把语言选择持久化；
+  // document 级委托在 View Transitions 换页后依然有效，只需绑定一次
+  document.addEventListener('click', (e) => {
+    const el = e.target instanceof Element && e.target.closest('[data-lang-switch]');
+    if (el) localStorage.setItem('lang-pref', el.getAttribute('data-lang-switch') || '');
+  });
+</script>

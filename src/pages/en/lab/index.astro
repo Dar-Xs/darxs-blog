@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ExternalLink from '../../../components/ExternalLink.astro';
+
+// 与中文 lab 页保持一致；中文文案改动时同步更新此页
+// Four-tier taxonomy : tools (open-source static sites) vs toys (non-profit fun)
+const groups = [
+  {
+    heading: 'Tools',
+    blurb: 'Handy little tools, fully open-source. Help yourself.',
+    items: [
+      {
+        // moved from /cases 2026-07-11: built for my mom, statically deployed, non-profit
+        name: 'Word form filler',
+        desc: 'Built for my mom — repetitive Word documents: upload the template, fill in the blanks, take the finished file.',
+        img: null,
+        links: [{ label: 'Use it', href: 'https://word.darxs.com' }],
+      },
+      {
+        // Service pending redeploy; add the live link once it's back
+        name: 'Math Latex',
+        desc: 'A by-product of grinding math problems — turns problem screenshots into LaTeX, and grew into a practice platform.',
+        img: '/img/lab/math-latex-preview.webp',
+        links: [{ label: 'Source', href: 'https://github.com/Dar-Xs/math-latex-client' }],
+      },
+      {
+        // TODO: rsa.chat.darxs.cn DNS record expired; restore after redeploy
+        name: 'RSA Web Chat',
+        desc: 'Wanted to pass secrets around safely, so I hand-rolled an end-to-end encrypted chat room.',
+        img: '/img/lab/rsa-chat-web-ui-preview.webp',
+        links: [
+          { label: 'Use it', href: 'https://rsa.chat.darxs.cn' },
+          { label: 'Source', href: 'https://github.com/Dar-Xs/RSA-Web-Chat' },
+        ],
+      },
+    ],
+  },
+  {
+    heading: 'Toys',
+    blurb: "Built whenever I couldn't sit still. Go ahead, play.",
+    items: [
+      {
+        // TODO: Play-Piano link & description pending
+        name: 'Play-Piano',
+        desc: 'A piano-related toy. Details on their way.',
+        img: null,
+        links: [],
+      },
+      {
+        name: 'Texas Hold’em',
+        desc: 'Poker night always lacked a dealer, so I wrote one — shuffling, dealing and settling, all automated. The price: no chips to fiddle with :(',
+        img: '/img/lab/cyber-casino-preview.webp',
+        links: [{ label: 'Build log', href: '/en/blog/texas-game-web-full-stack-development' }],
+      },
+      {
+        name: 'Football 1922',
+        desc: 'A LAN multiplayer football game. No game engine — the 2D physics is hand-rolled.',
+        img: '/img/lab/football-1922-preview.webp',
+        links: [{ label: 'Build log', href: '/en/blog/start-from-scratch-multi-player-soccer-game' }],
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Lab" description="Handy tools and toys built for fun">
+  <div class="py-10">
+    <h1 class="text-3xl font-bold">Lab</h1>
+    <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300">
+      All these little creations run live — tools to use, toys to play with. Help yourself.
+    </p>
+  </div>
+
+  {
+    groups.map((group) => (
+      <section class="pb-12">
+        <h2 class="text-xl font-bold">{group.heading}</h2>
+        <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{group.blurb}</p>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2">
+          {group.items.map((item) => (
+            <article class="overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800">
+              {item.img ? (
+                <img src={item.img} alt={`Screenshot of ${item.name}`} class="aspect-video w-full object-cover" loading="lazy" />
+              ) : (
+                <div class="flex aspect-video w-full items-center justify-center bg-neutral-100 text-xs text-neutral-400 dark:bg-neutral-900">
+                  screenshot soon
+                </div>
+              )}
+              <div class="p-5">
+                <h3 class="font-semibold">{item.name}</h3>
+                <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{item.desc}</p>
+                {item.links.length > 0 && (
+                  <div class="mt-4 flex gap-4 text-sm">
+                    {item.links.map((l) =>
+                      l.href.startsWith('http') ? (
+                        <ExternalLink
+                          href={l.href}
+                          class="font-medium underline underline-offset-4 hover:text-neutral-600 dark:hover:text-neutral-300"
+                        >
+                          {l.label}
+                        </ExternalLink>
+                      ) : (
+                        <a
+                          href={l.href}
+                          class="font-medium underline underline-offset-4 hover:text-neutral-600 dark:hover:text-neutral-300"
+                        >
+                          {l.label}
+                        </a>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+</BaseLayout>

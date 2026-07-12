@@ -1,0 +1,83 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
+import { getLangFromPath, getCounterpart, useTranslations } from '../i18n';
+import '../styles/global.css';
+
+interface Props {
+  /** 页面名，如「案例」；省略则用站名 */
+  title?: string;
+  description?: string;
+  /** 本页是否有另一语言的版本；false 时不声明对侧 hreflang、不弹语言提示（如仅中文的博客正文） */
+  translated?: boolean;
+  /** 语言切换的目标路径；未翻译页传对侧最近的存在页面（如博客正文传 /en/blog） */
+  counterpart?: string;
+  /** 让搜索引擎撤下本页（如草稿文章：URL 可达但不进索引） */
+  noindex?: boolean;
+}
+
+const pathname = Astro.url.pathname;
+const lang = getLangFromPath(pathname);
+const t = useTranslations(lang);
+
+const {
+  title,
+  description = t('site.description'),
+  translated = true,
+  counterpart = getCounterpart(pathname),
+  noindex = false,
+} = Astro.props;
+const fullTitle = title ? `${title} | ${t('site.name')}` : t('site.name');
+
+// 全站双语：每页自动生成 hreflang 互链，x-default 指中文（站点默认语言）；
+// 未翻译页只声明自己，防止 hreflang 指向不存在的 URL
+const zhPath = lang === 'zh' ? pathname : counterpart;
+const enPath = lang === 'en' ? pathname : counterpart;
+const alternates = translated
+  ? [
+      { hreflang: 'zh-CN', path: zhPath },
+      { hreflang: 'en', path: enPath },
+      { hreflang: 'x-default', path: zhPath },
+    ]
+  : [
+      { hreflang: lang === 'en' ? 'en' : 'zh-CN', path: pathname },
+      { hreflang: 'x-default', path: pathname },
+    ];
+---
+
+<!doctype html>
+<html lang={lang === 'en' ? 'en' : 'zh-CN'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={t('site.name')} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={new URL(pathname, Astro.site).href} />
+    <meta property="og:image" content={new URL('/og.png', Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'zh_CN'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex" />}
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={new URL(a.path, Astro.site).href} />)}
+    <ClientRouter />
+  </head>
+  <body class="flex min-h-screen flex-col bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+    <Header translated={translated} counterpart={counterpart} />
+    <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
+      <slot />
+    </main>
+    <Footer />
+    <BackToTop />
+  </body>
+</html>

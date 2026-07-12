@@ -1,0 +1,54 @@
+---
+/**
+ * 首页第四拍：轮换的残星状态（通向 about）。
+ * 服务端渲染默认项（轮换库首条），JS 可用时每次访问随机定格一条——
+ * "推门撞见主人此刻在干什么",不做原地轮播。
+ */
+import { ownerStates } from '../data/ownerStates';
+
+interface Props {
+  lang: 'zh' | 'en';
+}
+
+const { lang } = Astro.props;
+const titles = ownerStates[lang];
+const aboutHref = lang === 'en' ? '/en/about' : '/about';
+---
+
+<section class="border-t border-neutral-200 py-12 dark:border-neutral-800">
+  <div class="flex items-baseline justify-between">
+    <h2 id="owner-state" data-titles={JSON.stringify(titles)} class="text-xl font-bold">
+      {titles[0]}
+    </h2>
+    <a
+      href={aboutHref}
+      class="text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+    >
+      {lang === 'en' ? 'Say hello →' : '认识一下 →'}
+    </a>
+  </div>
+  <p class="mt-6 text-neutral-600 dark:text-neutral-300">
+    {
+      lang === 'en'
+        ? 'Based in Shanghai. Piano for joy, creations for a living, tinkering without end.'
+        : 'Base 上海，弹琴为乐，造物为生，折腾不止。'
+    }
+  </p>
+</section>
+
+<script>
+  function initOwnerState() {
+    const el = document.getElementById('owner-state');
+    if (!el) return;
+    try {
+      const titles = JSON.parse(el.dataset.titles || '[]');
+      if (Array.isArray(titles) && titles.length) {
+        el.textContent = titles[Math.floor(Math.random() * titles.length)];
+      }
+    } catch {
+      /* 数据异常时保留服务端默认项 */
+    }
+  }
+
+  document.addEventListener('astro:page-load', initOwnerState);
+</script>

@@ -1,0 +1,27 @@
+---
+/**
+ * 外链统一出口：
+ * 凡离开本站的链接（含自家子域）走本组件——新标签打开 + ↗ 角标 + 读屏提示；
+ * mailto 与站内路径不用它。
+ */
+import { Icon } from 'astro-icon/components';
+import { getLangFromPath } from '../i18n';
+
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+const lang = getLangFromPath(Astro.url.pathname);
+---
+
+<a href={href} target="_blank" rel="noopener" class={className}>
+  <slot />
+  <Icon
+    name="tabler:external-link"
+    class="ml-0.5 inline-block h-[0.85em] w-[0.85em] align-[-0.05em]"
+    aria-hidden="true"
+  />
+  <span class="sr-only">{lang === 'en' ? '(opens in new tab)' : '（新窗口打开）'}</span>
+</a>

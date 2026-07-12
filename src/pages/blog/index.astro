@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n';
+
+const t = useTranslations('zh');
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// frontmatter 日期是无时区的纯日期（YAML 解析成 UTC 零点），格式化必须锁 UTC 防止跨日
+const fmt = new Intl.DateTimeFormat('zh-CN', { dateStyle: 'long', timeZone: 'UTC' });
+---
+
+<BaseLayout title="博客" description="残星的博客：技术分享与经验记录">
+  <div class="py-10">
+    <h1 class="text-3xl font-bold">博客</h1>
+    <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300">工作台上的笔记：部署、折腾，和一些想法。</p>
+  </div>
+
+  <ul class="divide-y divide-neutral-200 dark:divide-neutral-800">
+    {
+      posts.map((post) => (
+        <li>
+          <a href={`/blog/${post.id}`} class="group block py-6">
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">
+              <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt.format(post.data.date)}</time>
+              <span> · {t(`category.${post.data.category}`)}</span>
+            </p>
+            <h2 class="mt-1 text-xl font-semibold underline-offset-4 group-hover:underline">{post.data.title}</h2>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{post.data.description}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

@@ -1,0 +1,7 @@
+# Netlify 构建配置——仓库内声明,覆盖 UI 里的旧值(旧站 publish 是 Docusaurus 的 build/)
+[build]
+  command = "pnpm build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* 博客正文里的 admonition 容器（remark-admonitions.mjs 生成，源自 Docusaurus 的 :::note 语法）。
+   强调色只用在左边线和底色上，标题走默认前景色，避免深浅两套配色的对比度问题 */
+.admonition {
+  --admonition-accent: var(--color-neutral-400);
+  margin-block: 1.5em;
+  border-inline-start: 3px solid var(--admonition-accent);
+  border-start-end-radius: var(--radius-md);
+  border-end-end-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--admonition-accent) 8%, transparent);
+  padding: 0.75em 1.25em;
+}
+.admonition > :first-child {
+  margin-top: 0;
+}
+.admonition > :last-child {
+  margin-bottom: 0;
+}
+.admonition-title {
+  font-weight: 600;
+}
+.admonition-info {
+  --admonition-accent: var(--color-sky-500);
+}
+.admonition-tip {
+  --admonition-accent: var(--color-green-500);
+}
+.admonition-caution,
+.admonition-warning {
+  --admonition-accent: var(--color-amber-500);
+}
+.admonition-danger {
+  --admonition-accent: var(--color-red-500);
+}
+
+/* 《浏览器如何运作》补翻期间的英文原文对照段：灰色小字，校对完成后连原文一起整体删除
+   （校对完成后本规则一并移除） */
+.original-en {
+  font-size: 0.875em;
+  color: var(--color-neutral-500);
+}
+
+/* 吸顶导航的锚点偏移：页内跳转的目标不被导航条（h-14 = 3.5rem）盖住 */
+[id] {
+  scroll-margin-top: calc(3.5rem + 1rem);
+}
+
+/* ---- 博客正文排版（@tailwindcss/typography 默认值之上的微调） ---- */
+
+/* 中文正文行高：1.75 是拉丁文的尺子，中文略挤 */
+.prose {
+  line-height: 1.85;
+}
+
+/* 行内代码：去掉 typography 默认的假反引号伪元素，换成底色胶囊 */
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+.prose :not(pre) > code {
+  background: var(--color-neutral-100);
+  border-radius: var(--radius-sm);
+  padding: 0.15em 0.4em;
+  font-weight: 500;
+}
+@media (prefers-color-scheme: dark) {
+  .prose :not(pre) > code {
+    background: var(--color-neutral-800);
+  }
+}
+
+/* 引用块：中文没有真斜体，伪斜难看；同时去掉英文引号伪元素 */
+.prose blockquote {
+  font-style: normal;
+}
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  content: none;
+}
+
+/* 图与图注居中：文章里的 <figure align="center"> 是无效的遗留属性，靠 CSS 兜底 */
+.prose img {
+  margin-inline: auto;
+}
+.prose figure {
+  text-align: center;
+}
+.prose figcaption {
+  text-align: center;
+}
+
+/* 代码块暗色主题切换（配 astro.config.mjs 的 shikiConfig.themes 双主题） */
+@media (prefers-color-scheme: dark) {
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
+}
