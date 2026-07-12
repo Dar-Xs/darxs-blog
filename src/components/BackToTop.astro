@@ -1,0 +1,33 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getLangFromPath, useTranslations } from '../i18n';
+
+// 右下角回到顶部:滚动超过一屏才出现(配合吸顶导航)
+const t = useTranslations(getLangFromPath(Astro.url.pathname));
+---
+
+<button
+  id="back-to-top"
+  type="button"
+  data-visible="false"
+  aria-label={t('a11y.backToTop')}
+  class="fixed bottom-6 right-6 z-40 rounded-full border border-neutral-200 bg-white/85 p-2.5 text-neutral-600 shadow-sm backdrop-blur transition-opacity duration-200 hover:text-neutral-900 data-[visible=false]:pointer-events-none data-[visible=false]:opacity-0 dark:border-neutral-800 dark:bg-neutral-950/85 dark:text-neutral-300 dark:hover:text-neutral-100"
+>
+  <Icon name="tabler:arrow-up" class="h-5 w-5" aria-hidden="true" />
+</button>
+
+<script>
+  // window 级监听只绑一次;按钮元素在 View Transitions 换页后会被重建,
+  // 所以处理函数里现查元素,astro:page-load 时再同步一次初始状态
+  const update = () => {
+    const btn = document.getElementById('back-to-top');
+    if (btn) btn.dataset.visible = String(window.scrollY > window.innerHeight);
+  };
+  addEventListener('scroll', update, { passive: true });
+  document.addEventListener('astro:page-load', update);
+  document.addEventListener('click', (e) => {
+    if (e.target instanceof Element && e.target.closest('#back-to-top')) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+</script>

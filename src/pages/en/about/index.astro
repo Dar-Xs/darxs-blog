@@ -1,0 +1,94 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ExternalLink from '../../../components/ExternalLink.astro';
+
+// 与中文 about 页保持一致；中文文案改动时同步更新此页
+const contacts = [
+  { label: 'GitHub', href: 'https://github.com/Dar-Xs', icon: 'tabler:brand-github' },
+  {
+    label: 'Stack Overflow',
+    href: 'https://stackoverflow.com/users/20128048/dr-xiong',
+    icon: 'tabler:brand-stackoverflow',
+  },
+  { label: 'Twitter', href: 'https://twitter.com/darxs001', icon: 'tabler:brand-twitter' },
+];
+---
+
+<BaseLayout title="About" description="The person behind this site: DarXs (Ruohan Xiong)">
+  <div class="mx-auto max-w-2xl py-10">
+    <div class="flex items-center gap-6">
+      <img
+        src="/img/avatar.webp"
+        alt="Avatar"
+        class="h-24 w-24 rounded-full border border-neutral-200 dark:border-neutral-800"
+      />
+      <div>
+        <h1 class="text-3xl font-bold">DarXs</h1>
+        {/* Naming : about anchors the legal name */}
+        <p class="mt-2 text-neutral-500 dark:text-neutral-400">Ruohan Xiong · a craftsman who codes</p>
+      </div>
+    </div>
+
+    <div class="mt-10 space-y-4 text-neutral-700 dark:text-neutral-300">
+      <p>Based in Shanghai. Piano for joy, creations for a living, tinkering without end.</p>
+      <p>
+        I like turning repetitive work into systems, and building little things for no reason at
+        all — the former lives in <a href="/en/cases" class="underline underline-offset-4">Cases</a>,
+        the latter in the <a href="/en/lab" class="underline underline-offset-4">Lab</a>, and the
+        tinkering gets written up on the <a href="/en/blog" class="underline underline-offset-4">Blog</a>.
+      </p>
+    </div>
+
+    <div class="mt-10 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+      <h2 class="text-xl font-bold">The name</h2>
+      <div class="mt-4 space-y-4 text-neutral-700 dark:text-neutral-300">
+        <p>
+          DarXs was coined when I was young. It started as Dr.Xiong — the "Dr." being a joke,
+          since I'm neither a doctor nor a PhD. That shrank to DX, then unfolded into
+          <em>dare to face the Xs</em> — X as in algebra, the unknowns. Read it as a motto: face
+          the unknown. And dx happens to be the differential symbol in calculus — which is how
+          this site came to be called DarXs Differential.
+        </p>
+        <p>
+          残星 (<em>cán xīng</em>, "the fading stars") is the pen name I took once I'd started
+          working. DarXs already sounds like Dark Stars; and my given name 若晗 carries the
+          character 晗 — the sky at first light, the rising sun. 残星 are the stars thinning out
+          just before sunrise. So when I say "I am 残星", what it really means is: the sun is
+          about to come up.
+        </p>
+        <p>That changing line at the bottom of the homepage? It's what this star is doing right now.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+      <h2 class="text-xl font-bold">Piano</h2>
+      {/* TODO: expand when more piano material lands */}
+      <p class="mt-4 text-neutral-700 dark:text-neutral-300">
+        When I'm not coding, I'm at the piano. In the Lab there's a toy called Play-Piano —
+        that's the piano and the code colliding.
+      </p>
+    </div>
+
+    <div class="mt-10 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+      <h2 class="text-xl font-bold">Find me</h2>
+      {/* TODO: public contact channel to confirm (email placeholder for now) */}
+      <p class="mt-4 text-neutral-700 dark:text-neutral-300">
+        Email: <a href="mailto:admin@darxs.com" class="underline underline-offset-4">admin@darxs.com</a>
+      </p>
+      <div class="mt-4 flex flex-wrap gap-4 text-sm">
+        {
+          contacts.map((c) => (
+            <ExternalLink
+              href={c.href}
+              class="flex items-center gap-1.5 font-medium underline underline-offset-4 hover:text-neutral-600 dark:hover:text-neutral-300"
+            >
+              <Icon name={c.icon} class="h-4 w-4" aria-hidden="true" />
+              {c.label}
+            </ExternalLink>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</BaseLayout>

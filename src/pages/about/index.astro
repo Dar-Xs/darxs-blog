@@ -1,0 +1,92 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+
+// 社交链接沿用旧站 footer，属"真实的人"元素，非求职叙事
+const contacts = [
+  { label: 'GitHub', href: 'https://github.com/Dar-Xs', icon: 'tabler:brand-github' },
+  {
+    label: 'Stack Overflow',
+    href: 'https://stackoverflow.com/users/20128048/dr-xiong',
+    icon: 'tabler:brand-stackoverflow',
+  },
+  { label: 'Twitter', href: 'https://twitter.com/darxs001', icon: 'tabler:brand-twitter' },
+];
+---
+
+<BaseLayout title="关于" description="网站背后的人：残星，本名熊若晗">
+  <div class="mx-auto max-w-2xl py-10">
+    <div class="flex items-center gap-6">
+      <img
+        src="/img/avatar.webp"
+        alt="头像"
+        class="h-24 w-24 rounded-full border border-neutral-200 dark:border-neutral-800"
+      />
+      <div>
+        <h1 class="text-3xl font-bold">残星</h1>
+        {/* 命名体系：about 锚定本名 */}
+        <p class="mt-2 text-neutral-500 dark:text-neutral-400">本名熊若晗 · DarXs · 写代码的手艺人</p>
+      </div>
+    </div>
+
+    <div class="mt-10 space-y-4 text-neutral-700 dark:text-neutral-300">
+      <p>Base 上海，弹琴为乐，造物为生，折腾不止。</p>
+      <p>
+        我喜欢把手边重复的事变成系统，也喜欢造些不为什么的小东西——前者在<a
+          href="/cases"
+          class="underline underline-offset-4">案例</a
+        >里，后者在<a href="/lab" class="underline underline-offset-4">实验室</a
+        >里，折腾的过程记在<a href="/blog" class="underline underline-offset-4">博客</a>里。
+      </p>
+    </div>
+
+    <div class="mt-10 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+      <h2 class="text-xl font-bold">名字的由来</h2>
+      <div class="mt-4 space-y-4 text-neutral-700 dark:text-neutral-300">
+        <p>
+          DarXs 是年轻时取的。起点是 Dr.Xiong——熊博士，虽然我既不是博士也不是医生。缩成
+          DX，再拆开，成了 dare to face the Xs：X 是数学里的未知数，代指一切未知的事物，所以这个名字读作「勇敢面对未知」。而
+          dx 恰好又是微分记号——这个站叫「DarXs 微分」，就是这么来的。
+        </p>
+        <p>
+          残星是工作以后取的花名。DarXs 本就近似 Dark
+          Stars；而我的本名若晗，「晗」是天将明——初升的太阳。日将出而群星残，残星就是太阳升起前正在变稀疏的星。所以「我是残星」，说的其实是：太阳快出来了。
+        </p>
+        <p>首页最下面那行会变的字，就是这颗星此刻的状态。</p>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+      <h2 class="text-xl font-bold">钢琴</h2>
+      {/* TODO：练琴经历等素材到位后扩写 */}
+      <p class="mt-4 text-neutral-700 dark:text-neutral-300">
+        不写代码的时候在弹钢琴。「弹琴为乐」——乐是音乐的乐，也是快乐的乐。实验室里那个叫
+        Play-Piano 的玩具，就是琴和代码撞出来的。
+      </p>
+    </div>
+
+    <div class="mt-10 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+      <h2 class="text-xl font-bold">找到我</h2>
+      {/* TODO：对外联系方式待确认，邮箱暂为占位 */}
+      <p class="mt-4 text-neutral-700 dark:text-neutral-300">
+        邮箱：<a href="mailto:admin@darxs.com" class="underline underline-offset-4"
+          >admin@darxs.com</a
+        >
+      </p>
+      <div class="mt-4 flex flex-wrap gap-4 text-sm">
+        {
+          contacts.map((c) => (
+            <ExternalLink
+              href={c.href}
+              class="flex items-center gap-1.5 font-medium underline underline-offset-4 hover:text-neutral-600 dark:hover:text-neutral-300"
+            >
+              <Icon name={c.icon} class="h-4 w-4" aria-hidden="true" />
+              {c.label}
+            </ExternalLink>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</BaseLayout>

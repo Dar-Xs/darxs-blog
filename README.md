@@ -55,3 +55,9 @@ If you are using GitHub pages for hosting, this command is a convenient way to b
 ### Translation
 
 Translate the original text into the corresponding language in this folder: `i18n`
+
+---
+
+## 重构计划
+
+站点正在从 Docusaurus 迁移到 Astro。

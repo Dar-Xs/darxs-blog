@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const mainCaseStats = [
+  { value: '4 个月', label: '投资人每天在用' },
+  { value: '4800+', label: '累计抓取资讯' },
+  { value: '7.9G', label: '截图存档' },
+];
+---
+
+<BaseLayout title="案例" description="真实客户、真实在用、真实付费的定制系统案例">
+  <div class="mx-auto max-w-3xl">
+    <section class="py-10">
+      <h1 class="text-3xl font-bold">案例</h1>
+      <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300">
+        我帮客户把重复的事变成系统。下面是正在运转的几个。
+      </p>
+    </section>
+
+    {/* 主案例 */}
+    <section class="border-t border-neutral-200 py-10 dark:border-neutral-800">
+      <h2 class="text-2xl font-bold">给投资人的资讯跟踪系统</h2>
+
+      {/* 表述待站长确认口径；数字以内部核准清单为准，不可改 */}
+      <div class="mt-6 space-y-4 text-neutral-700 dark:text-neutral-300">
+        <p>
+          <strong class="text-neutral-900 dark:text-neutral-100">客户的问题：</strong>
+          一位投资人每天要盯很多信息源，人工翻看费时间，还容易漏掉重要的。
+        </p>
+        <p>
+          <strong class="text-neutral-900 dark:text-neutral-100">我做了什么：</strong>
+          一套自动抓取、汇总资讯的系统，每天自动收集、留档，随时可以回头查。
+        </p>
+      </div>
+
+      <dl class="mt-8 grid grid-cols-3 gap-4">
+        {
+          mainCaseStats.map((s) => (
+            <div class="rounded-lg border border-neutral-200 p-4 text-center dark:border-neutral-800">
+              <dd class="text-xl font-bold">{s.value}</dd>
+              <dt class="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{s.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+
+      {/* TODO：补 main-case 截图（mock 数据或打码） */}
+      <div
+        class="mt-6 flex h-48 items-center justify-center rounded-lg border border-dashed border-neutral-300 text-sm text-neutral-400 dark:border-neutral-700"
+      >
+        系统截图（整理中）
+      </div>
+    </section>
+
+    {/* 辅案例（匿名，待拍板）：以下为匿名版占位，可整段删除。保持匿名口径，不放图 */}
+    <section class="border-t border-neutral-200 py-10 dark:border-neutral-800">
+      <h2 class="text-2xl font-bold">一家工厂的值守系统</h2>
+      <p class="mt-6 text-neutral-700 dark:text-neutral-300">
+        一家工厂有一批重复的线上操作，以前靠人盯。现在系统替人值守，已连续运行 14
+        个月，客户一直续着维护。
+      </p>
+    </section>
+
+    {/* 页尾联系方式：下一步动作 */}
+    <section class="border-t border-neutral-200 py-10 dark:border-neutral-800">
+      <h2 class="text-xl font-bold">你也有一件重复的事想变成系统？</h2>
+      {/* TODO：对外联系方式待确认（微信？邮箱？），先放邮箱占位 */}
+      <p class="mt-4 text-neutral-700 dark:text-neutral-300">
+        跟我聊聊：<a
+          href="mailto:admin@darxs.com"
+          class="font-medium underline underline-offset-4">admin@darxs.com</a
+        >
+      </p>
+      <p class="mt-3 text-sm text-neutral-500 dark:text-neutral-400">
+        想先看看我做的东西？<a href="/lab" class="underline underline-offset-4"
+          >实验室里有几件在线跑着的</a
+        >。
+      </p>
+    </section>
+  </div>
+</BaseLayout>

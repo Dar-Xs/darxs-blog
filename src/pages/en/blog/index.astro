@@ -1,0 +1,56 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../../i18n';
+import { getEnListings } from '../../../lib/blog-en';
+
+// 三态列表（见 src/lib/blog-en.ts）：英文版 / 站外原作(↗ 新标签) / 中文原文(标「· 中文」)
+const t = useTranslations('en');
+const listings = await getEnListings();
+// 有直链中文原文的条目才解释「中文」标注
+const hasZhOnly = listings.some((l) => l.zhOnly);
+const fmt = new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' });
+---
+
+<BaseLayout title="Blog" description="Notes from the workbench">
+  <div class="py-10">
+    <h1 class="text-3xl font-bold">Blog</h1>
+    <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300">
+      Notes from the workbench.{hasZhOnly && ' Entries marked 中文 lead to the Chinese original.'}
+    </p>
+  </div>
+
+  <ul class="divide-y divide-neutral-200 dark:divide-neutral-800">
+    {
+      listings.map(({ post, href, title, description, external, zhOnly }) => (
+        <li>
+          <a
+            href={href}
+            target={external ? '_blank' : undefined}
+            rel={external ? 'noopener' : undefined}
+            class="group block py-6"
+          >
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">
+              <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt.format(post.data.date)}</time>
+              <span> · {t(`category.${post.data.category}`)}{zhOnly && ' · 中文'}</span>
+            </p>
+            <h2 class="mt-1 text-xl font-semibold underline-offset-4 group-hover:underline">
+              {title}
+              {external && (
+                <>
+                  <Icon
+                    name="tabler:external-link"
+                    class="ml-1 inline-block h-[0.85em] w-[0.85em] align-[-0.05em] text-neutral-400"
+                    aria-hidden="true"
+                  />
+                  <span class="sr-only">(opens in new tab)</span>
+                </>
+              )}
+            </h2>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{description}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

@@ -1,0 +1,152 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import OwnerState from '../../components/OwnerState.astro';
+import { getEnListings } from '../../lib/blog-en';
+
+// Latest three posts; 三态解析同英文列表页（英文版 / 站外原作 / 中文原文标注）
+const latest = (await getEnListings()).slice(0, 3);
+const dateFmt = new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' });
+
+// 与中文首页保持结构一致；中文文案改动时同步更新此页
+const labPicks = [
+  {
+    name: 'Word form filler',
+    desc: 'Built for my mom — upload a template, fill in the blanks, take the finished file',
+    href: 'https://word.darxs.com',
+  },
+  {
+    // Service pending redeploy; switch to the new subdomain once live
+    name: 'Math Latex',
+    desc: 'A practice platform that renders math problems in LaTeX',
+    href: '/en/lab',
+  },
+  {
+    name: 'Texas Hold’em',
+    desc: 'Multiplayer web poker — shuffling, dealing and settling, all automated',
+    href: '/en/lab',
+  },
+];
+---
+
+<BaseLayout>
+  {/* TODO: hero tagline pending final wording (mirrors the Chinese draft) */}
+  {/* Naming : homepage shows alias + legal name; the site speaks as DarXs */}
+  <section class="py-16 sm:py-20">
+    <div class="flex flex-col items-center gap-8 sm:flex-row sm:justify-between">
+      <div class="max-w-xl text-center sm:text-left">
+        <h1 class="text-3xl font-bold leading-snug sm:text-4xl">I turn repetitive work into systems.</h1>
+        <p class="mt-5 text-neutral-600 dark:text-neutral-300">
+          I'm DarXs (Ruohan Xiong), a craftsman who codes. In this workshop you'll find machines
+          at work, handy tools, toys built for fun, and notes taken along the way.
+        </p>
+      </div>
+      {/* Hero mark: triangle-X logo; dark-mode color flip lives inside the SVG (prefers-color-scheme) */}
+      <img src="/logo.svg" alt="" class="h-40 w-40 shrink-0 select-none" aria-hidden="true" />
+    </div>
+  </section>
+
+  {/* Cases → /en/cases */}
+  <section class="border-t border-neutral-200 py-12 dark:border-neutral-800">
+    <div class="flex items-baseline justify-between">
+      <h2 class="text-xl font-bold">Machines at work</h2>
+      <a href="/en/cases" class="text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+        All cases →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <a
+        href="/en/cases"
+        class="rounded-lg border border-neutral-200 p-5 transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+      >
+        <h3 class="font-semibold">A news-tracking system for an investor</h3>
+        <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
+          Collects, organizes and archives automatically. In daily use for four months.
+        </p>
+      </a>
+      <a
+        href="/en/cases"
+        class="rounded-lg border border-neutral-200 p-5 transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+      >
+        <h3 class="font-semibold">A monitoring system for a factory</h3>
+        <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
+          Repetitive online tasks, watched over by a system — running for 14 months straight.
+        </p>
+      </a>
+    </div>
+  </section>
+
+  {/* Lab → /en/lab */}
+  <section class="border-t border-neutral-200 py-12 dark:border-neutral-800">
+    <div class="flex items-baseline justify-between">
+      <h2 class="text-xl font-bold">Creations on display</h2>
+      <a href="/en/lab" class="text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+        Visit the lab →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 sm:grid-cols-3">
+      {
+        labPicks.map((toy) => (
+          <a
+            href={toy.href}
+            target={toy.href.startsWith('http') ? '_blank' : undefined}
+            rel={toy.href.startsWith('http') ? 'noopener' : undefined}
+            class="rounded-lg border border-neutral-200 p-5 transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+          >
+            <h3 class="font-semibold">
+              {toy.name}
+              {toy.href.startsWith('http') && (
+                <Icon
+                  name="tabler:external-link"
+                  class="ml-1 inline-block h-[0.85em] w-[0.85em] align-[-0.05em] text-neutral-400"
+                  aria-hidden="true"
+                />
+              )}
+            </h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{toy.desc}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* Blog → /en/blog */}
+  <section class="border-t border-neutral-200 py-12 dark:border-neutral-800">
+    <div class="flex items-baseline justify-between">
+      <h2 class="text-xl font-bold">Notes from the workbench</h2>
+      <a href="/en/blog" class="text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+        All posts →
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 sm:grid-cols-3">
+      {
+        latest.map(({ post, href, title, description, external, zhOnly }) => (
+          <a
+            href={href}
+            target={external ? '_blank' : undefined}
+            rel={external ? 'noopener' : undefined}
+            class="rounded-lg border border-neutral-200 p-5 transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
+          >
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">
+              {dateFmt.format(post.data.date)}{zhOnly && ' · 中文'}
+            </p>
+            <h3 class="mt-1 font-semibold">
+              {title}
+              {external && (
+                <Icon
+                  name="tabler:external-link"
+                  class="ml-1 inline-block h-[0.85em] w-[0.85em] align-[-0.05em] text-neutral-400"
+                  aria-hidden="true"
+                />
+              )}
+            </h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* Fourth beat: rotating DarXs state, leads to /en/about */}
+  <OwnerState lang="en" />
+</BaseLayout>

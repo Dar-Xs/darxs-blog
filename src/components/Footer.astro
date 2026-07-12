@@ -1,0 +1,46 @@
+---
+import ExternalLink from './ExternalLink.astro';
+import { getLangFromPath, useTranslations } from '../i18n';
+
+const t = useTranslations(getLangFromPath(Astro.url.pathname));
+const year = new Date().getFullYear();
+
+// 友链沿用旧站 footer 的 Friends 栏；域名一律用各自当前有效的
+// 注意：dar-xs.com 已易主，站内任何地方都不要再链接它或其子域
+const friends = [
+  { label: 'Shamming', href: 'https://shamming.cn' },
+  { label: 'Eric Huang', href: 'https://www.erichuang.top' },
+];
+---
+
+<footer class="border-t border-neutral-200 dark:border-neutral-800">
+  <div
+    class="mx-auto flex w-full max-w-5xl flex-col items-center gap-1 px-4 py-6 text-center text-xs text-neutral-500 dark:text-neutral-400"
+  >
+    <p class="flex flex-wrap justify-center gap-x-3">
+      <span>{t('footer.friends')}</span>
+      {
+        friends.map((f) => (
+          <ExternalLink
+            href={f.href}
+            class="underline underline-offset-4 hover:text-neutral-900 dark:hover:text-neutral-100"
+          >
+            {f.label}
+          </ExternalLink>
+        ))
+      }
+    </p>
+    <p>Copyright © 2019 - {year} DarXs · Powered by Netlify</p>
+    <p class="flex flex-wrap justify-center gap-x-3">
+      <ExternalLink
+        href="https://icp.gov.moe/?keyword=20232192"
+        class="hover:text-neutral-900 dark:hover:text-neutral-100"
+      >
+        萌ICP备20232192号
+      </ExternalLink>
+      <ExternalLink href="http://beian.miit.gov.cn/" class="hover:text-neutral-900 dark:hover:text-neutral-100">
+        鄂ICP备2023017512号-1
+      </ExternalLink>
+    </p>
+  </div>
+</footer>
