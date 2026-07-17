@@ -71,6 +71,11 @@
   }
 }
 
+/* 正文里以裸 URL 为文字的链接：不给断行机会会把窄屏撑出横向滚动 */
+.prose a {
+  overflow-wrap: anywhere;
+}
+
 /* 引用块：中文没有真斜体，伪斜难看；同时去掉英文引号伪元素 */
 .prose blockquote {
   font-style: normal;
