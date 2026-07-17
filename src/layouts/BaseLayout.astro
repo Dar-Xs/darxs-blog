@@ -52,6 +52,59 @@ const alternates = translated
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {/* 深浅模式：三态开关（系统/亮/暗）。必须内联且同步，赶在首帧绘制前给 <html> 定色，杜绝闪烁 */}
+    <script is:inline>
+      (function () {
+        var KEY = 'theme';
+        var mq = window.matchMedia('(prefers-color-scheme: dark)');
+        var ORDER = { system: 'light', light: 'dark', dark: 'system' };
+
+        function setting() {
+          try {
+            var v = localStorage.getItem(KEY);
+            return v === 'light' || v === 'dark' ? v : 'system';
+          } catch (e) {
+            return 'system';
+          }
+        }
+
+        function apply() {
+          var s = setting();
+          var dark = s === 'dark' || (s === 'system' && mq.matches);
+          var el = document.documentElement;
+          el.classList.toggle('dark', dark);
+          el.setAttribute('data-theme', s);
+          var btn = document.querySelector('[data-theme-toggle]');
+          if (btn) {
+            var label = btn.getAttribute('data-label-' + s);
+            if (label) btn.setAttribute('title', label);
+          }
+        }
+
+        apply(); // 首帧同步定色
+
+        document.addEventListener('click', function (e) {
+          var btn = e.target instanceof Element && e.target.closest('[data-theme-toggle]');
+          if (!btn) return;
+          var next = ORDER[setting()];
+          try {
+            if (next === 'system') localStorage.removeItem(KEY);
+            else localStorage.setItem(KEY, next);
+          } catch (e2) {}
+          apply();
+        });
+
+        // 自动模式下跟随系统实时切换
+        mq.addEventListener('change', function () {
+          if (setting() === 'system') apply();
+        });
+
+        // View Transitions 换页后 <html> 属性被重置，紧接着重新定色（绘制前）
+        document.addEventListener('astro:after-swap', apply);
+        // 首帧时 <body> 里的按钮尚未解析，页面就绪后再跑一次补上按钮 title
+        document.addEventListener('astro:page-load', apply);
+      })();
+    </script>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

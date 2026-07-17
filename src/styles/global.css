@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* 深浅模式由 <html> 上的 .dark 类驱动（不再跟随 prefers-color-scheme）：
+   开关有 系统/亮/暗 三态，防闪烁与切换逻辑在 BaseLayout 的内联脚本里。
+   dark: 变体、下面手写的 .dark 规则、组件里的 dark:* 工具类全部认这个类 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* 博客正文里的 admonition 容器（remark-admonitions.mjs 生成，源自 Docusaurus 的 :::note 语法）。
    强调色只用在左边线和底色上，标题走默认前景色，避免深浅两套配色的对比度问题 */
 .admonition {
@@ -65,10 +70,8 @@
   padding: 0.15em 0.4em;
   font-weight: 500;
 }
-@media (prefers-color-scheme: dark) {
-  .prose :not(pre) > code {
-    background: var(--color-neutral-800);
-  }
+.dark .prose :not(pre) > code {
+  background: var(--color-neutral-800);
 }
 
 /* 正文里以裸 URL 为文字的链接：不给断行机会会把窄屏撑出横向滚动 */
@@ -97,13 +100,23 @@
 }
 
 /* 代码块暗色主题切换（配 astro.config.mjs 的 shikiConfig.themes 双主题） */
-@media (prefers-color-scheme: dark) {
-  .astro-code,
-  .astro-code span {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-    font-style: var(--shiki-dark-font-style) !important;
-    font-weight: var(--shiki-dark-font-weight) !important;
-    text-decoration: var(--shiki-dark-text-decoration) !important;
-  }
+.dark .astro-code,
+.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+/* 深浅开关的三个图标：按 <html data-theme> 显隐，SSR 首帧就定好不闪。
+   无记录（如禁用 JS）兜底显示「跟随系统」图标 */
+.theme-icon {
+  display: none;
+}
+:root:not([data-theme]) .theme-icon-system,
+[data-theme='system'] .theme-icon-system,
+[data-theme='light'] .theme-icon-light,
+[data-theme='dark'] .theme-icon-dark {
+  display: inline-flex;
 }

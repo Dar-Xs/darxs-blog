@@ -19,9 +19,13 @@ export const ui: Record<Lang, Record<string, string>> = {
     'category.vol': '随笔',
     'category.translation': '译文',
     'a11y.backToTop': '回到顶部',
+    'theme.toggle': '切换深浅',
+    'theme.system': '跟随系统',
+    'theme.light': '浅色',
+    'theme.dark': '深色',
   },
   en: {
-    'site.name': 'DarXs Differential',
+    'site.name': 'DarXs',
     'nav.cases': 'Cases',
     'nav.blog': 'Blog',
     'nav.lab': 'Lab',
@@ -32,6 +36,10 @@ export const ui: Record<Lang, Record<string, string>> = {
     'category.vol': 'Essay',
     'category.translation': 'Translation',
     'a11y.backToTop': 'Back to top',
+    'theme.toggle': 'Toggle theme',
+    'theme.system': 'System',
+    'theme.light': 'Light',
+    'theme.dark': 'Dark',
   },
 };
 

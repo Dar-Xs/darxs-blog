@@ -58,11 +58,26 @@ const langToggle =
           </a>
         ))
       }
+      {/* 深浅开关：循环 系统→亮→暗；三个图标按 <html data-theme> 显隐（见 global.css），
+          点击/持久化/防闪烁全在 BaseLayout 的内联脚本，本按钮零内联 JS */}
+      <button
+        type="button"
+        data-theme-toggle
+        data-label-system={t('theme.system')}
+        data-label-light={t('theme.light')}
+        data-label-dark={t('theme.dark')}
+        aria-label={t('theme.toggle')}
+        class="ml-1 flex items-center rounded-md border border-neutral-200 p-1.5 text-neutral-600 transition-colors hover:text-neutral-900 dark:border-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 sm:ml-2"
+      >
+        <Icon name="tabler:device-desktop" class="theme-icon theme-icon-system h-3.5 w-3.5" aria-hidden="true" />
+        <Icon name="tabler:sun" class="theme-icon theme-icon-light h-3.5 w-3.5" aria-hidden="true" />
+        <Icon name="tabler:moon" class="theme-icon theme-icon-dark h-3.5 w-3.5" aria-hidden="true" />
+      </button>
       <a
         href={langToggle.href}
         data-lang-switch={langToggle.target}
         aria-label={langToggle.label}
-        class="ml-1 flex items-center gap-1.5 rounded-md border border-neutral-200 px-2 py-1.5 text-xs text-neutral-600 transition-colors hover:text-neutral-900 dark:border-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 sm:ml-2 sm:px-2.5"
+        class="ml-1 flex items-center gap-1.5 rounded-md border border-neutral-200 px-2 py-1.5 text-xs text-neutral-600 transition-colors hover:text-neutral-900 dark:border-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-100 sm:px-2.5"
       >
         <Icon name="tabler:world" class="h-3.5 w-3.5" aria-hidden="true" />
         <span class="hidden whitespace-nowrap sm:inline">{langToggle.label}</span>
