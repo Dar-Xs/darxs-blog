@@ -41,8 +41,10 @@ const labPicks = [
           at work, handy tools, toys built for fun, and notes taken along the way.
         </p>
       </div>
-      {/* Hero mark: triangle-X logo; dark-mode color flip lives inside the SVG (prefers-color-scheme) */}
-      <img src="/logo.svg" alt="" class="h-40 w-40 shrink-0 select-none" aria-hidden="true" />
+      {/* Hero mark: triangle-X logo. Color flip via page CSS with two files (same as Header) —
+          prefers-color-scheme inside the SVG is ignored by Safari when loaded via img */}
+      <img src="/img/site/logo_black.svg" alt="" class="h-40 w-40 shrink-0 select-none dark:hidden" aria-hidden="true" />
+      <img src="/img/site/logo_white.svg" alt="" class="hidden h-40 w-40 shrink-0 select-none dark:block" aria-hidden="true" />
     </div>
   </section>
 

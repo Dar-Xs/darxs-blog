@@ -42,8 +42,10 @@ const labPicks = [
           我是残星，本名熊若晗——写代码的手艺人。这间工作室里有正在运转的机器、顺手的小工具、闲不住造的玩具，和一路记下的笔记。
         </p>
       </div>
-      {/* Hero 图形：三角 X logo，暗色模式的反色写在 SVG 内部（prefers-color-scheme） */}
-      <img src="/logo.svg" alt="" class="h-40 w-40 shrink-0 select-none" aria-hidden="true" />
+      {/* Hero 图形：三角 X logo。反色走页面 CSS 双图切换（同 Header）——
+          SVG 内部的 prefers-color-scheme 在 Safari 的 img 加载下不生效，深色进站会黑图贴黑底 */}
+      <img src="/img/site/logo_black.svg" alt="" class="h-40 w-40 shrink-0 select-none dark:hidden" aria-hidden="true" />
+      <img src="/img/site/logo_white.svg" alt="" class="hidden h-40 w-40 shrink-0 select-none dark:block" aria-hidden="true" />
     </div>
   </section>
 
